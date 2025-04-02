@@ -29,6 +29,6 @@ def plot_fft(time_axis, amp_axis):
 
 
 
-rate, amp_axis1, time_axis1 = read_wav_file('song_2_shakira_out.wav')
+rate, amp_axis1, time_axis1 = read_wav_file('test_recordings/song_2_shakira_out.wav')
 
 plot_fft(time_axis1, amp_axis1)

@@ -49,11 +49,14 @@ def encode(file_path_in : str, file_path_out : str):
     write_wav_file(file_path_out, rate, coded_amps)
     return rate, coded_amps, time_axis
 
-#bits_array = decode('test_recordings/Shakir_Shakira.wav')
-#print(bits_array)
- # Checking for errors
-for i in range(MESSAGE_LENGTH):
-    try:
-        if message_array[i] != function_dictionary[bits_array[i]]:
-            print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i]]))
-    except: Exception
+
+if __name__ == '__main__':
+    encode('test_recordings/song_2_shakira.wav','test_recordings/song_2_shakira_out.wav')
+    bits_array = decode('test_recordings/song_2_shakira_out.wav')
+    print(bits_array)
+     # Checking for errors
+    for i in range(MESSAGE_LENGTH):
+        try:
+            if message_array[i] != function_dictionary[bits_array[i]]:
+                print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i]]))
+        except: Exception
