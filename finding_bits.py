@@ -26,6 +26,25 @@ def calc_integral(time_axis : list, amp_axis : list, func) -> float:
         area += amp * func_val
     return area
 
+def calc_integral_with_indexes(time_axis : list, amp_axis : list, func, initial_ind, final_ind) -> float:
+    '''
+    :param func: A function composing of sin and cos waves
+    :param time_axis: The time axis of the wave
+    :param amp_axis: The Y axis of the wave representing amplitude
+    :return: The area under the graph of the func * wave
+    '''
+      # Setting a variable for the area.
+    area = 0
+    for i in range(initial_ind,final_ind):
+        # Setting variables for convenience
+        time = time_axis[i]
+        amp = amp_axis[i]
+        # Calculating function value at time
+        func_val = func(time)
+        # Adding to area
+        area += amp * func_val
+    return area
+
 def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : list, func_array : list) -> list:
     '''
 
@@ -48,7 +67,8 @@ def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : 
         bit_time_array = time_axis[i * bit_array_length : (i + 1) * bit_array_length]
         bit_amp_array = amp_axis[i * bit_array_length: (i + 1) * bit_array_length]
         # Checking each func
-        area = float('inf')
+        area = 0
+        correlating_function = None
         for func in func_array:
             # Calculating area of multiplication of wave by function
             area1 = calc_integral(bit_time_array, bit_amp_array, func)
