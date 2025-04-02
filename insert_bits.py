@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io.wavfile as wav
 from finding_start import *
+import soundfile as sf
+
 
 def plot(x, y, x_name="time", y_name="data"):
     plt.figure(figsize=(10, 5))
@@ -16,6 +18,11 @@ def plot(x, y, x_name="time", y_name="data"):
 
 def read_wav_file(filename):
     rate, data = wav.read(filename)
+    if data.ndim == 2:
+        new_data = np.zeros(len(data))
+        for i in range(len(data)):
+            new_data[i] = data[i][0]#+data[i][1]
+        data = new_data
     dt=1.0/rate
     # time=np.arange(0, len(data)*dt, dt)
     time = np.zeros(len(data))
@@ -39,6 +46,15 @@ def insert_func_into_data_section(time_axis, amp_axis, func):
     return ams_out
 
 def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_time, final_time):
+    '''
+
+    :param time_axis:
+    :param amp_axis:
+    :param func:
+    :param initial_time: the time we start
+    :param final_time:
+    :return:
+    '''
     ams_out = amp_axis.copy()
     dt = time_axis[1] - time_axis[0]
     initial_ind = int(initial_time / dt)
@@ -70,7 +86,7 @@ def cos1(t, freq = 50, amp = 1):
 
 
 if __name__ == '__main__':
-    rate, data, time = read_wav_file('test_recording_1.wav')
+    rate, data, time = read_wav_file('song_2_shakira.wav')
     # plot(time, data)
     # print('rate = ', rate)
     plot(time, data)
@@ -84,4 +100,4 @@ if __name__ == '__main__':
     print(start_ind)
 
 
-    write_wav_file("test_recording_1_output.wav", rate, new_data)
+    write_wav_file("song_2_shakira_out.wav", rate, data)
