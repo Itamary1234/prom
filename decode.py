@@ -11,7 +11,7 @@ from CONSTANTS import *
 
 
 
-def decode(file_path_in : str, file_path_out : str) -> list:
+def decode(file_path_in : str) -> list:
     '''
     :param file_path_in: File of song or recording to encode data on message
     :param file_path_out: File to write encoded data on
@@ -20,7 +20,7 @@ def decode(file_path_in : str, file_path_out : str) -> list:
     '''
 
     # Getting data, plotting it
-    rate, coded_amps, time_axis = encode(file_path_in, file_path_out)
+    rate, coded_amps, time_axis = read_wav_file(file_path_in)
 
     print('Data Encoded, Here We GO')
     # Finding the start of the message (index) using the find start function
@@ -49,8 +49,11 @@ def encode(file_path_in : str, file_path_out : str):
     write_wav_file(file_path_out, rate, coded_amps)
     return rate, coded_amps, time_axis
 
-#bits_array = decode('song_2_shakira.wav', 'song_2_shakira_out.wav')
-# Checking for errors
-#for i in range(MESSAGE_LENGTH):
-#    if message_array[i] != function_dictionary[bits_array[i]]:
-#        print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i]]))
+#bits_array = decode('test_recordings/Shakir_Shakira.wav')
+#print(bits_array)
+ # Checking for errors
+for i in range(MESSAGE_LENGTH):
+    try:
+        if message_array[i] != function_dictionary[bits_array[i]]:
+            print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i]]))
+    except: Exception

@@ -29,7 +29,6 @@ def plot_fft(time_axis, amp_axis):
 
 
 
-time_axis1 = np.linspace(0, 1, 1000, endpoint=False)  # 1 second duration, 1000 samples
-amp_axis1 = np.sin(2 * np.pi * 50 * time_axis1)  # 50 Hz sine wave
+rate, amp_axis1, time_axis1 = read_wav_file('song_2_shakira_out.wav')
 
 plot_fft(time_axis1, amp_axis1)
