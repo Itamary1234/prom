@@ -82,7 +82,7 @@ def encode_information(time_axis, amp_axis, initial_time, information):
     '''
     current_time = initial_time
     for bit in information:
-        f = function_array[bit]
+        f = FUNCTION_ARRAY[bit]
         insert_func_into_data_section_by_time(time_axis, amp_axis, f, current_time, current_time + T_BIT)
         current_time = current_time + T_BIT
 
