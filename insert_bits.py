@@ -76,11 +76,11 @@ if __name__ == '__main__':
     plot(time, data)
 
     new_data = insert_func_into_data_section_by_time(time, data, sin1,0.6,1.6)
+
     plot(time, new_data,y_name="new_amplitude")
 
-    #corr_func = find_bits(1, 5, time, new_data, [sin, cos, sin1, cos1])
-    #print(corr_func)
-    start_ind = find_start(1, time, new_data, cos1)
+
+    start_ind = rec_find_start(1, time, new_data, sin1, 10000)
     print(start_ind)
 
 

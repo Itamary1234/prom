@@ -19,12 +19,14 @@ def calc_integral(time_axis : list, amp_axis : list, func, initial_ind : int, fi
     '''
       # Setting a variable for the area.
     area = 0
+    # Acounting for phase
+    initial_time=time_axis[initial_ind]
     for i in range(initial_ind,final_ind):
         # Setting variables for convenience
         time = time_axis[i]
         amp = amp_axis[i]
-        # Calculating function value at time
-        func_val = func(time)
+        # Calculating function value at time, when setting 0 at the beginning
+        func_val = func(time-initial_time)
         # Adding to area
         area += amp * func_val
     return area
