@@ -1,6 +1,7 @@
 import numpy as np
 RATE = 48000
 MESSAGE_LENGTH = 50 # Number of bits sent
+message_array = [0] * 13 + [1] * 13 + [2] * 12 + [3] * 12
 T_BIT = 0.2 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5.3
@@ -23,7 +24,6 @@ MESSAGE_END = int(MESSAGE_LENGTH * T_BIT * RATE) # Total indexes of message
 function_dictionary = {func0 : 0, func1 : 1, func2 : 2, func3 : 3} # All bits possible given as functions
 FUNCTION_ARRAY = [func0, func1, func2, func3]
 
-message_array = [0] * 13 + [1] * 13 + [2] * 12 + [3] * 12
 
 
 

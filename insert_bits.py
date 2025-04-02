@@ -38,13 +38,7 @@ def get_time(rate,data):
     dt = 1.0 / rate
     return np.arange(0, len(data) * dt, dt)
 
-def insert_func_into_data_section(time_axis, amp_axis, func):
-    ams_out = np.zeros(len(time_axis))
-    for i in range(time_axis.size):
-        ams_out[i] = (func(time_axis[i]) + amp_axis[i])
-    return ams_out
-
-def insert_func_into_data_section_by_time(time_axis, amp_axis, func, INITIAL_TIME, final_time):
+def insert_func_into_data_section_by_time(time_axis, amp_axis, func, final_time):
     '''
 
     :param time_axis:
@@ -59,14 +53,6 @@ def insert_func_into_data_section_by_time(time_axis, amp_axis, func, INITIAL_TIM
     final_ind = int(final_time / dt)
     for i in range(initial_ind,final_ind):
         amp_axis[i] = (func(time_axis[i]-INITIAL_TIME) + amp_axis[i])
-
-def insert_func_into_data_section_by_index(time_axis, amp_axis, func, initial_index, final_index):
-    """
-    this function returns nothing and changes the amp_axis itself
-    """
-    for i in range(initial_index, final_index):
-        amp_axis[i] += func(time_axis[i])
-
 
 
 def encode_information(time_axis, amp_axis, information):
@@ -94,7 +80,7 @@ def encrypt(time_axis, amp_axis):
     :return:
     '''
     insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, INITIAL_TIME, INITIAL_TIME + T_WORD)
-    encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD,message_array)
+    encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD, message_array)
 
 if __name__ == '__main__':
     rate, data, time = read_wav_file('song_2_shakira.wav')
@@ -103,14 +89,3 @@ if __name__ == '__main__':
     plot(time, data)
     encrypt(time, data)
     plot(time, data,"new")
-
-    # new_data = insert_func_into_data_section_by_time(time, data, sin1,3.6,4.6)
-
-    # plot(time, new_data,y_name="new_amplitude")
-    #
-    #
-    # start_ind = rec_find_start(1, time, new_data, sin1, 10000)
-    # print(start_ind)
-    #
-    #
-    # write_wav_file("song_2_shakira_out.wav", rate, data)
