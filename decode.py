@@ -5,18 +5,9 @@
 
 from finding_start import *
 from insert_bits import *
-
+from CONSTANTS import *
 ##########################
 
-# Some decided beforehand constants
-RATE = 48000
-MESSAGE_LENGTH = 50 # Number of bits sent
-T_BIT = 0.2 # Time for each bit
-T_WORD = 1 # Time for opening word
-word = start_func # Function to open message
-MESSAGE_END = int(MESSAGE_LENGTH * T_BIT * RATE) # Total indexes of message
-function_dictionary = {func0 : 0, func1 : 1, func2 : 2, func3 : 3} # All bits possible given as functions
-function_array = [func0, func1, func2, func3]
 
 rate, data, time = read_wav_file('song_2_shakira.wav')
 encrypt(time, data)
@@ -24,8 +15,6 @@ write_wav_file('song_2_shakira_out.wav',rate,data)
 # Data from file
 time_axis = time
 
-
-message_array = [0] * 13 + [1] * 13 + [2] * 12 + [3] * 12
 
 coded_amps = data
 print('Data Encoded, Here We GO')
@@ -41,7 +30,7 @@ message_amp = coded_amps[message_start:message_start + MESSAGE_END]
 
 bits_array = find_bits(MESSAGE_LENGTH, T_BIT, message_time, message_amp, function_array)
 print(bits_array)
-for i in range(50):
+for i in range(MESSAGE_LENGTH):
     if message_array[i] != function_dictionary[bits_array[i]]:
         print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i]]))
 

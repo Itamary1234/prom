@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io.wavfile as wav
 from finding_start import *
-
+from CONSTANTS import *
 
 def plot(x, y, x_name="time", y_name="data"):
     plt.figure(figsize=(10, 5))
@@ -69,19 +69,7 @@ def insert_func_into_data_section_by_index(time_axis, amp_axis, func, initial_in
 
 
 
-def start_func(t):
-    return 531 * np.sin(t * 2 * np.pi)
-def func0(t):
-    return 299 * np.sin(t*1031)
-def func1(t):
-    return 307 * np.sin(t*1474)
-def func2(t):
-    return 347 * np.sin(t*1221)
-def func3(t):
-    return 273 * np.sin(t*1741)
-
-
-def encode_information(time_axis, amp_axis, initial_time, information, func_array=None, t_bit = 0.2):
+def encode_information(time_axis, amp_axis, initial_time, information):
     '''
     this function changes amps itself
     :param time_axis:
@@ -92,13 +80,11 @@ def encode_information(time_axis, amp_axis, initial_time, information, func_arra
     :param t_bit: time of each bit
     :return: nothing
     '''
-    if func_array is None:
-        func_array = [func0, func1, func2, func3]
     current_time = initial_time
     for bit in information:
-        f = func_array[bit]
+        f = function_array[bit]
         insert_func_into_data_section_by_time(time_axis, amp_axis, f, current_time, current_time + t_bit)
-        current_time = current_time + t_bit
+        current_time = current_time + T_BIT
 
 
 def encrypt(time_axis, amp_axis):
@@ -108,13 +94,11 @@ def encrypt(time_axis, amp_axis):
     :param amp_axis:
     :return:
     '''
-    message_array = arr = [0] * 13 + [1] * 13 + [2] * 12 + [3] * 12
-    insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, 5.3, 6.3)
-    encode_information(time_axis, amp_axis, 6.3,message_array)
+    initial_time = 5.3
+    insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, initial_time, initial_time + T_WORD)
+    encode_information(time_axis, amp_axis, initial_time + T_WORD,message_array)
 
 if __name__ == '__main__':
-    for i in range(13):
-        print(1,end=",")
     rate, data, time = read_wav_file('song_2_shakira.wav')
     # plot(time, data)
     # print('rate = ', rate)
