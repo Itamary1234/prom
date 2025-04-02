@@ -19,7 +19,7 @@ word = start_func # Function to open message
 MESSAGE_END = int(MESSAGE_LENGTH * T_BIT * RATE) # Total indexes of message
 
 function_dictionary = {func0 : 0, func1 : 1, func2 : 2, func3 : 3} # All bits possible given as functions
-function_array = [func0, func1, func2, func3]
+FUNCTION_ARRAY = [func0, func1, func2, func3]
 
 message_array = [0] * 13 + [1] * 13 + [2] * 12 + [3] * 12
 
