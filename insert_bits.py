@@ -38,24 +38,24 @@ def get_time(rate,data):
     dt = 1.0 / rate
     return np.arange(0, len(data) * dt, dt)
 
-def insert_func_into_data_section_by_time(time_axis, amp_axis, func, final_time):
+def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_time, final_time):
     '''
 
     :param time_axis:
     :param amp_axis:
     :param func:
-    :param INITIAL_TIME: the time we start
+    :param initial_time: the time we start
     :param final_time:
     :return:
     '''
     dt = time_axis[1] - time_axis[0]
-    initial_ind = int(INITIAL_TIME / dt)
+    initial_ind = int(initial_time / dt)
     final_ind = int(final_time / dt)
     for i in range(initial_ind,final_ind):
-        amp_axis[i] = (func(time_axis[i]-INITIAL_TIME) + amp_axis[i])
+        amp_axis[i] = (func(time_axis[i]-initial_time) + amp_axis[i])
 
 
-def encode_information(time_axis, amp_axis, information):
+def encode_information(time_axis, amp_axis, initial_time, information):
     '''
     this function changes amps itself
     :param time_axis:
@@ -65,7 +65,7 @@ def encode_information(time_axis, amp_axis, information):
     :param t_bit: time of each bit
     :return: nothing
     '''
-    current_time = INITIAL_TIME
+    current_time = initial_time
     for bit in information:
         f = FUNCTION_ARRAY[bit]
         insert_func_into_data_section_by_time(time_axis, amp_axis, f, current_time, current_time + T_BIT)
@@ -80,7 +80,7 @@ def encrypt(time_axis, amp_axis):
     :return:
     '''
     insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, INITIAL_TIME, INITIAL_TIME + T_WORD)
-    encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD, message_array)
+    encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD,message_array)
 
 if __name__ == '__main__':
     rate, data, time = read_wav_file('song_2_shakira.wav')
