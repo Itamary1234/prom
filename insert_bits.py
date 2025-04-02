@@ -38,13 +38,14 @@ def insert_func_into_data_section(time_axis, amp_axis, func):
         ams_out[i] = (func(time_axis[i]) + amp_axis[i])
     return ams_out
 
-def insert_func_into_data_section_by_initial_time(time_axis, amp_axis, func, initial_time):
-    ams_out = np.zeros(len(time_axis))
+def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_time, final_time):
+    ams_out = amp_axis.copy()
     dt = time_axis[1] - time_axis[0]
-
-    ind = int(initial_time/dt)
-    print("ind = "+str(ind))
-    for i in range(ind,time_axis.size):
+    initial_ind = int(initial_time / dt)
+    print("initial_ind = " + str(initial_ind))
+    final_ind = int(final_time / dt)
+    print("final_ind = " + str(final_ind))
+    for i in range(initial_ind,final_ind):
         ams_out[i] = (func(time_axis[i]-initial_time) + amp_axis[i])
     return ams_out
 
@@ -58,13 +59,13 @@ def insert_func_into_data_section_by_index(time_axis, amp_axis, func, initial_in
 
 
 def sin(t, freq = 1, amp = 1000):
-    return (amp * np.sin(t*freq))
+    return amp * np.sin(t*freq)
 def cos(t, freq = 1, amp = 1):
-    return (amp * np.cos(t*freq))
+    return amp * np.cos(t*freq)
 def sin1(t, freq = 2 * np.pi, amp = 2000):
-    return (amp * np.sin(t*freq))
+    return amp * np.sin(t*freq)
 def cos1(t, freq = 50, amp = 1):
-    return (amp * np.cos(t*freq))
+    return amp * np.cos(t*freq)
 
 
 
@@ -72,14 +73,14 @@ if __name__ == '__main__':
     rate, data, time = read_wav_file('test_recording_1.wav')
     # plot(time, data)
     # print('rate = ', rate)
-    new_data = insert_func_into_data_section_by_initial_time(time, data, sin1, 0.5)
+    plot(time, data)
+
+    new_data = insert_func_into_data_section_by_time(time, data, sin1,0.6,1.6)
     plot(time, new_data,y_name="new_amplitude")
 
-    #corr_func = find_bits(1, 5, time, new_data, [sin, cos, sin1,cos1])
+    #corr_func = find_bits(1, 5, time, new_data, [sin, cos, sin1, cos1])
     #print(corr_func)
-    #
-    start_ind = find_start(1, time, new_data, sin1)
-
+    start_ind = find_start(1, time, new_data, cos1)
     print(start_ind)
 
 
