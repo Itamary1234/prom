@@ -70,7 +70,7 @@ if __name__ == '__main__':
     rate, data, time = read_wav_file('test_recording_1.wav')
     # plot(time, data)
     # print('rate = ', rate)
-    new_data = insert_func_into_data_section_by_initial_time(time, data, sin1,0.005)
+    new_data = insert_func_into_data_section_by_initial_time(time, data, sin1,0.5)
     plot(time, new_data,y_name="new_amplitude")
 
     #corr_func = find_bits(1, 5, time, new_data, [sin, cos, sin1, cos1])
