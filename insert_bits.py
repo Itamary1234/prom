@@ -44,21 +44,21 @@ def insert_func_into_data_section(time_axis, amp_axis, func):
         ams_out[i] = (func(time_axis[i]) + amp_axis[i])
     return ams_out
 
-def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_time, final_time):
+def insert_func_into_data_section_by_time(time_axis, amp_axis, func, INITIAL_TIME, final_time):
     '''
 
     :param time_axis:
     :param amp_axis:
     :param func:
-    :param initial_time: the time we start
+    :param INITIAL_TIME: the time we start
     :param final_time:
     :return:
     '''
     dt = time_axis[1] - time_axis[0]
-    initial_ind = int(initial_time / dt)
+    initial_ind = int(INITIAL_TIME / dt)
     final_ind = int(final_time / dt)
     for i in range(initial_ind,final_ind):
-        amp_axis[i] = (func(time_axis[i]-initial_time) + amp_axis[i])
+        amp_axis[i] = (func(time_axis[i]-INITIAL_TIME) + amp_axis[i])
 
 def insert_func_into_data_section_by_index(time_axis, amp_axis, func, initial_index, final_index):
     """
@@ -69,20 +69,19 @@ def insert_func_into_data_section_by_index(time_axis, amp_axis, func, initial_in
 
 
 
-def encode_information(time_axis, amp_axis, initial_time, information):
+def encode_information(time_axis, amp_axis, information):
     '''
     this function changes amps itself
     :param time_axis:
     :param amp_axis:
-    :param initial_time: the time to start sending the bits
     :param information: array of the bits [0,1,2,2,3...]
     :param func_array: all the function matching the bits
     :param t_bit: time of each bit
     :return: nothing
     '''
-    current_time = initial_time
+    current_time = INITIAL_TIME
     for bit in information:
-        f = function_array[bit]
+        f = FUNCTION_ARRAY[bit]
         insert_func_into_data_section_by_time(time_axis, amp_axis, f, current_time, current_time + T_BIT)
         current_time = current_time + T_BIT
 
@@ -94,9 +93,8 @@ def encrypt(time_axis, amp_axis):
     :param amp_axis:
     :return:
     '''
-    initial_time = 5.3
-    insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, initial_time, initial_time + T_WORD)
-    encode_information(time_axis, amp_axis, initial_time + T_WORD,message_array)
+    insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, INITIAL_TIME, INITIAL_TIME + T_WORD)
+    encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD,message_array)
 
 if __name__ == '__main__':
     rate, data, time = read_wav_file('song_2_shakira.wav')

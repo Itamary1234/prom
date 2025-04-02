@@ -34,17 +34,17 @@ message_amp = coded_amps[message_start:message_start + MESSAGE_END]
 
 # Finding bits using find bits functions
 
-bits_array = find_bits(MESSAGE_LENGTH, T_BIT, message_time, message_amp, function_array)
+bits_array = find_bits(MESSAGE_LENGTH, T_BIT, message_time, message_amp, FUNCTION_ARRAY)
 print(bits_array)
 for i in range(MESSAGE_LENGTH):
     if message_array[i] != function_dictionary[bits_array[i]]:
         print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i]]))
 
 
-def decode(file_path : str, function_array : list, message_length : int, t_bit : float, t_word : float, word_func) -> list:
+def decode(file_path : str, FUNCTION_ARRAY : list, message_length : int, t_bit : float, t_word : float, word_func) -> list:
     '''
     :param file_path: File of encoded message
-    :param function_array: All possible bits given as functions
+    :param FUNCTION_ARRAY: All possible bits given as functions
     :param message_length: Number of bits in message
     :param t_bit: Time for each bit
     :param t_word: Time for opening word

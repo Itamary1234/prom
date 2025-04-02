@@ -3,6 +3,8 @@ RATE = 48000
 MESSAGE_LENGTH = 50 # Number of bits sent
 T_BIT = 0.2 # Time for each bit
 T_WORD = 1 # Time for opening word
+INITIAL_TIME = 5.3
+
 
 def start_func(t):
     return 531 * np.sin(t * 2 * np.pi)
