@@ -2,6 +2,7 @@
 # This file is a mvp for decoding signals which aren't trying to be hidden
 # It searches for an opening word, and then it is looking for bits
 # Imports
+import numpy as np
 
 from finding_start import *
 from insert_bits import *
@@ -10,7 +11,12 @@ from CONSTANTS import *
 
 
 rate, data, time = read_wav_file('song_2_shakira.wav')
+plot(time, data)
+data = np.zeros(1000000)
+time = get_time(rate, data)
 encrypt(time, data)
+plot(time, data)
+
 write_wav_file('song_2_shakira_out.wav',rate,data)
 # Data from file
 time_axis = time
@@ -37,7 +43,6 @@ for i in range(MESSAGE_LENGTH):
 
 def decode(file_path : str, function_array : list, message_length : int, t_bit : float, t_word : float, word_func) -> list:
     '''
-
     :param file_path: File of encoded message
     :param function_array: All possible bits given as functions
     :param message_length: Number of bits in message
