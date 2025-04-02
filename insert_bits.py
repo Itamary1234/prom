@@ -114,6 +114,8 @@ def encrypt(time_axis, amp_axis):
     encode_information(time_axis, amp_axis, 6.3,message_array)
 
 if __name__ == '__main__':
+    for i in range(13):
+        print(1,end=",")
     rate, data, time = read_wav_file('song_2_shakira.wav')
     # plot(time, data)
     # print('rate = ', rate)
