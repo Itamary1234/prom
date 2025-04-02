@@ -45,4 +45,5 @@ def decode(file_path : str, function_array : list, message_length : int, t_bit :
     :return:
     '''
     # Pseudo code for now
-     # amps, rate, time = read_wave('file_path') # Getting data from filepath
+    # amps, rate, time = read_wave('file_path') # Getting data from filepath
+    # message_end = message_length * 0.1 * rate  # Total indexes of message
