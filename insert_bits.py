@@ -37,9 +37,11 @@ def insert_func_into_data_section(time_axis, amp_axis, func):
     for i in range(time_axis.size):
         ams_out[i] = (func(time_axis[i]) + amp_axis[i])
     return ams_out
+
 def insert_func_into_data_section_by_initial_time(time_axis, amp_axis, func, initial_time):
     ams_out = np.zeros(len(time_axis))
     dt = time_axis[1] - time_axis[0]
+
     ind = int(initial_time/dt)
     print("ind = "+str(ind))
     for i in range(ind,time_axis.size):
@@ -70,12 +72,14 @@ if __name__ == '__main__':
     rate, data, time = read_wav_file('test_recording_1.wav')
     # plot(time, data)
     # print('rate = ', rate)
-    new_data = insert_func_into_data_section_by_initial_time(time, data, sin1,0.5)
+    new_data = insert_func_into_data_section_by_initial_time(time, data, sin1, 0.5)
     plot(time, new_data,y_name="new_amplitude")
 
-    #corr_func = find_bits(1, 5, time, new_data, [sin, cos, sin1, cos1])
+    #corr_func = find_bits(1, 5, time, new_data, [sin, cos, sin1,cos1])
     #print(corr_func)
+    #
     start_ind = find_start(1, time, new_data, sin1)
+
     print(start_ind)
 
 

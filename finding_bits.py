@@ -6,31 +6,15 @@
 import numpy as np
 import math
 
-#
-def calc_integral(time_axis : list, amp_axis : list, func) -> float:
-    '''
-    :param func: A function composing of sin and cos waves
-    :param time_axis: The time axis of the wave
-    :param amp_axis: The Y axis of the wave representing amplitude
-    :return: The area under the graph of the func * wave
-    '''
-      # Setting a variable for the area.
-    area = 0
-    for i in range(len(time_axis)):
-        # Setting variables for convenience
-        time = time_axis[i]
-        amp = amp_axis[i]
-        # Calculating function value at time
-        func_val = func(time)
-        # Adding to area
-        area += amp * func_val
-    return area
 
-def calc_integral_with_indexes(time_axis : list, amp_axis : list, func, initial_ind, final_ind) -> float:
+
+def calc_integral(time_axis : list, amp_axis : list, func, initial_ind : int, final_ind : int) -> float:
     '''
     :param func: A function composing of sin and cos waves
     :param time_axis: The time axis of the wave
     :param amp_axis: The Y axis of the wave representing amplitude
+    :param initial_ind: The index to start integral from
+    :param final_ind: The index to end integral
     :return: The area under the graph of the func * wave
     '''
       # Setting a variable for the area.
@@ -53,7 +37,7 @@ def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : 
     :param amp_axis: The Y axis of the wave representing amplitude
     :param func_array: All funcs we want to check
     :param message_length: Number of bits
-    :return: Array of funcs with highest integral
+    :return: Array of funcs with the highest integral
     '''
     # Making an array for correct / correlating funcs
     corr_funcs = []
@@ -62,19 +46,18 @@ def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : 
 
     bit_array_length = int(round(t_bit / time_interval)) # Number of indexes for each bit
 
+    # Going through each bit
     for i in range(message_length):
-        # Creating arrays for the specific bit
-        bit_time_array = time_axis[i * bit_array_length : (i + 1) * bit_array_length]
-        bit_amp_array = amp_axis[i * bit_array_length: (i + 1) * bit_array_length]
-        # Checking each func
-        area = 0
+
+        max_area = 0
         correlating_function = None
+        # Checking correlation with each function
         for func in func_array:
             # Calculating area of multiplication of wave by function
-            area1 = calc_integral(bit_time_array, bit_amp_array, func)
+            area = calc_integral(time_axis, amp_axis, func, i * bit_array_length, (i + 1) * bit_array_length)
             # If this function fits better, keep it
-            if area1 > area:
-                area = area1
+            if area > max_area:
+                max_area = area
                 correlating_function = func
         corr_funcs.append(correlating_function)
 

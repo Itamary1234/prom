@@ -24,12 +24,12 @@ def find_start(message_length : int, time_axis : list, amp_axis : list, hidden_f
     start_index=-1
     # Going through all possible starts
     for i in range(0, len(time_axis) - message_array_length, 1000):
-        area = calc_integral_with_indexes(time_axis, amp_axis, hidden_func,i,i+message_array_length)
+        area = calc_integral(time_axis, amp_axis, hidden_func,i,i+message_array_length)
         if area >= max_area:
             max_area = area
             start_index = i
             # Debugging
-            print("max = "+str(max_area)+", index = "+str(start_index))
+            print("max = "+str(max_area)+", index = "+ str(start_index))
         if i%100 == 0:
             print("i = "+str(i))
             ########
