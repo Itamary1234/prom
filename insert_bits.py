@@ -72,13 +72,13 @@ def insert_func_into_data_section_by_index(time_axis, amp_axis, func, initial_in
 def start_func(t):
     return 531 * np.sin(t * 2 * np.pi)
 def func0(t):
-    return 299 * np.sin(t*1031)
+    return 289 * np.sin(t*1031)
 def func1(t):
-    return 307 * np.sin(t*1474)
+    return 307 * np.sin(t * 1474)
 def func2(t):
     return 347 * np.sin(t*1221)
 def func3(t):
-    return 273 * np.sin(t*1741)
+    return 273 * np.sin(t * 1741)
 
 
 def encode_information(time_axis, amp_axis, initial_time, information, func_array=None, t_bit = 0.2):
