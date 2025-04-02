@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io.wavfile as wav
 from finding_start import *
-import soundfile as sf
 
 
 def plot(x, y, x_name="time", y_name="data"):
@@ -78,7 +77,7 @@ def sin(t, freq = 1, amp = 1000):
     return amp * np.sin(t*freq)
 def cos(t, freq = 1, amp = 1):
     return amp * np.cos(t*freq)
-def sin1(t, freq = 2 * np.pi, amp = 2000):
+def sin1(t, freq = 2 * np.pi, amp = 200):
     return amp * np.sin(t*freq)
 def cos1(t, freq = 50, amp = 1):
     return amp * np.cos(t*freq)
@@ -91,7 +90,7 @@ if __name__ == '__main__':
     # print('rate = ', rate)
     plot(time, data)
 
-    new_data = insert_func_into_data_section_by_time(time, data, sin1,0.6,1.6)
+    new_data = insert_func_into_data_section_by_time(time, data, sin1,3,4)
 
     plot(time, new_data,y_name="new_amplitude")
 
