@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io.wavfile as wav
 from finding_start import *
-import soundfile as sf
 
 
 def plot(x, y, x_name="time", y_name="data"):
@@ -71,18 +70,18 @@ def insert_func_into_data_section_by_index(time_axis, amp_axis, func, initial_in
 
 
 def start_func(t):
-    return 5 * np.sin(t * 527) + 7 * np.cos(t * 703)
+    return 531 * np.sin(t * 2 * np.pi)
 def func0(t):
-    return 10 * np.sin(t*1031)
+    return 299 * np.sin(t*1031)
 def func1(t):
-    return 20 * np.sin(t*774)
+    return 307 * np.sin(t*1474)
 def func2(t):
-    return 7 * np.sin(t*1121)
+    return 347 * np.sin(t*1221)
 def func3(t):
-    return 17 * np.sin(t*1741)
+    return 273 * np.sin(t*1741)
 
 
-def encode_information(time_axis, amp_axis, initial_time, information, func_array=None, t_bit = 0.1):
+def encode_information(time_axis, amp_axis, initial_time, information, func_array=None, t_bit = 0.2):
     '''
     this function changes amps itself
     :param time_axis:
@@ -109,8 +108,8 @@ def encrypt(time_axis, amp_axis):
     :param amp_axis:
     :return:
     '''
-    message_array = [0,1,2,3,2,1,0,1,2,3,2,1,0,1,2,3,2,1,0,1,2,3,2,1,0,1,2,3,2,1,0,1,2,3,2,1,0,1,1,1,1,1,1,2,2,2,2,2,2,2]
-    insert_func_into_data_section_by_time(time, data, start_func, 5.3, 6.3)
+    message_array = arr = [0] * 13 + [1] * 13 + [2] * 12 + [3] * 12
+    insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, 5.3, 6.3)
     encode_information(time_axis, amp_axis, 6.3,message_array)
 
 if __name__ == '__main__':
