@@ -55,7 +55,7 @@ def cos(t, freq = 1, amp = 1):
 
 # if __name__ == '__main__':
     # rate, data, time = read_wav_file('../song_1.wav')
-    # plot(time, data)
+    # plot(time, data)sdf
     # print('rate = ', rate)
     # new_data = insert_func_into_data_section(time, data, sin)
     # plot(time, new_data,y_name="new_amplitude")
