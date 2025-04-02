@@ -12,6 +12,8 @@ from CONSTANTS import *
 
 rate, data, time = read_wav_file('song_2_shakira.wav')
 plot(time, data)
+data = np.zeros(1000000)
+time = get_time(rate, data)
 encrypt(time, data)
 plot(time, data)
 

@@ -46,7 +46,7 @@ def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : 
     # Calculating some constants
     time_interval = time_axis[1] - time_axis[0] # Time between each measurement
 
-    bit_array_length = int(round(t_bit / time_interval)) # Number of indexes for each bit
+    bit_array_length = int(t_bit / time_interval) # Number of indexes for each bit
 
     # Going through each bit
     for i in range(message_length):
