@@ -54,9 +54,9 @@ def encode(file_path_in : str, file_path_out : str):
 
 if __name__ == '__main__':
     print("starting")
-    encode('test_recordings/song_2_shakira.wav','test_recordings/song_2_shakira_out.wav')
+    encode(INPUT_FILE,OUTPUT_FILE)
     print("encode finished starting decode")
-    bits_array = decode('test_recordings/song_2_shakira_out.wav')
+    bits_array = decode(OUTPUT_FILE)
     print("decode finished")
     print(bits_array)
      # Checking for errors
