@@ -41,11 +41,11 @@ def decode(file_path_in : str) -> list:
 def encode(file_path_in : str, file_path_out : str):
     # Getting data, plotting it
     rate, coded_amps, time_axis = read_wav_file(file_path_in)
-    # plot(time_axis, coded_amps)
+    plot(time_axis, coded_amps)
 
     # Encoding signal in data and plotting it
     encrypt(time_axis, coded_amps)
-    # plot(time_axis, coded_amps)
+    plot(time_axis, coded_amps)
 
     # Writing into file so we could hear that recording is hidden
     write_wav_file(file_path_out, rate, coded_amps)

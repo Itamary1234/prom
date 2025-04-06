@@ -1,22 +1,22 @@
 import numpy as np
 RATE = 48000
-MESSAGE_LENGTH = 1000 # Number of bits sent
-message_array = [0] * 260 + [1] * 260 + [2] * 240 + [3] * 240
-T_BIT = 0.6 # Time for each bit
+MESSAGE_LENGTH = 100 # Number of bits sent
+message_array = [0] * 26 + [1] * 26 + [2] * 24 + [3] * 24
+T_BIT = 0.4 # Time for each bit
 T_WORD = 1 # Time for opening word
-INITIAL_TIME = 5.3
+INITIAL_TIME = 1.3
 
 
 def start_func(t):
     return 531 * np.sin(t * 2 * np.pi)
 def func0(t):
-    return 1000 * (np.sin(t*-1031) + np.sin(t*1200) + np.cos(t*900))
+    return 600 * np.sin(t*-1031)
 def func1(t):
-    return 1000 * (np.sin(t*1031) + np.sin(t*-1200) + np.cos(t*-900))
+    return 600 * np.sin(t*1031)
 def func2(t):
-    return 1000 * (np.sin(t*-1741) + np.sin(t*-1400) + np.cos(t*700))
+    return 600 * np.sin(t*-1741)
 def func3(t):
-    return 1000 * (np.sin(t*1741) + np.sin(t*1400) + np.cos(t*-700))
+    return 600 * np.sin(t*1741)
 
 word = start_func # Function to open message
 MESSAGE_END = int(MESSAGE_LENGTH * T_BIT * RATE) # Total indexes of message
