@@ -49,8 +49,10 @@ def encode(file_path_in : str, file_path_out : str):
     write_wav_file(file_path_out, rate, coded_amps)
     return rate, coded_amps, time_axis
 
-#bits_array = decode('test_recordings/Shakir_Shakira.wav')
-#print(bits_array)
+encode('song_2_shakira.wav', 'song_2_shakira_out.wav')
+
+bits_array = decode('song_2_shakira_out.wav')
+print(bits_array)
  # Checking for errors
 for i in range(MESSAGE_LENGTH):
     try:
