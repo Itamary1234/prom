@@ -31,6 +31,26 @@ def calc_integral(time_axis : list, amp_axis : list, func, initial_ind : int, fi
         area += amp * func_val
     return area
 
+
+def numpy_calc_integral(time_axis: np.ndarray, amp_axis: np.ndarray, func, initial_ind: int, final_ind: int) -> float:
+    """
+    :param func: A function composing of sin and cos waves
+    :param time_axis: The time axis of the wave
+    :param amp_axis: The Y axis of the wave representing amplitude
+    :param initial_ind: The index to start integral from
+    :param final_ind: The index to end integral
+    :return: The area under the graph of the func * wave
+    """
+    # Setting initial time for phase adjustment
+    initial_time = time_axis[initial_ind]
+
+    # Vectorized operation: Calculate the function values and multiply by the amplitudes
+    time_diff = time_axis[initial_ind:final_ind] - initial_time
+    func_vals = func(time_diff)
+    area = np.sum(amp_axis[initial_ind:final_ind] * func_vals)  # Sum over the product
+    return area
+
+
 def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : list, func_array : list) -> list:
     '''
 
@@ -66,4 +86,37 @@ def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : 
     return corr_funcs
 
 
+def numpy_find_bits(message_length: int, t_bit: float, time_axis: np.ndarray, amp_axis: np.ndarray, func_array: list) -> list:
+    """
+    :param t_bit: Time for each bit
+    :param time_axis: The time axis of the wave
+    :param amp_axis: The Y axis of the wave representing amplitude
+    :param func_array: All funcs we want to check
+    :param message_length: Number of bits
+    :return: Array of funcs with the highest integral
+    """
+    # Making an array for correct / correlating funcs
+    corr_funcs = []
+
+    # Calculate the constants
+    time_interval = time_axis[1] - time_axis[0]  # Time between each measurement
+    bit_array_length = int(t_bit / time_interval)  # Number of indexes for each bit
+
+    # Precompute the area values for each bit window
+    areas = np.zeros((message_length, len(func_array)))
+
+    for i in range(message_length):
+        start_ind = i * bit_array_length
+        end_ind = (i + 1) * bit_array_length
+
+        # For each function in func_array, calculate the area
+        for j, func in enumerate(func_array):
+            areas[i, j] = numpy_calc_integral(time_axis, amp_axis, func, start_ind, end_ind)
+
+    # Select the best matching function for each bit
+    for i in range(message_length):
+        max_area_index = np.argmax(areas[i, :])  # Find the index of the maximum area
+        corr_funcs.append(func_array[max_area_index])  # Append the corresponding function
+
+    return corr_funcs
 

@@ -24,7 +24,9 @@ def decode(file_path_in : str) -> list:
 
     print('Data Read, Here We GO')
     # Finding the start of the message (index) using the find start function
+
     message_start = rec_find_start(T_WORD, time_axis, coded_amps, word) + T_WORD * rate
+
     print("message_end = " +str(message_start))
 
     # Creating message graph
@@ -32,7 +34,7 @@ def decode(file_path_in : str) -> list:
     message_amp = coded_amps[message_start:message_start + MESSAGE_END]
 
     # Finding bits using find bits functions
-    bits_array = find_bits(MESSAGE_LENGTH, T_BIT, message_time, message_amp, FUNCTION_ARRAY)
+    bits_array = numpy_find_bits(MESSAGE_LENGTH, T_BIT, message_time, message_amp, FUNCTION_ARRAY)
     return bits_array
 
 
