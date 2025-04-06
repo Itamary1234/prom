@@ -10,13 +10,13 @@ INITIAL_TIME = 5.3
 def start_func(t):
     return 531 * np.sin(t * 2 * np.pi)
 def func0(t):
-    return 1200 * np.sin(t*1031)
+    return 1000 * (np.sin(t*-1031) + np.sin(t*1200) + np.cos(t*900))
 def func1(t):
-    return 1205 * np.sin(t*1474)
+    return 1000 * (np.sin(t*1031) + np.sin(t*-1200) + np.cos(t*-900))
 def func2(t):
-    return 1207 * np.sin(t*1221)
+    return 1000 * (np.sin(t*-1741) + np.sin(t*-1400) + np.cos(t*700))
 def func3(t):
-    return 1203 * np.sin(t*1741)
+    return 1000 * (np.sin(t*1741) + np.sin(t*1400) + np.cos(t*-700))
 
 word = start_func # Function to open message
 MESSAGE_END = int(MESSAGE_LENGTH * T_BIT * RATE) # Total indexes of message
@@ -24,7 +24,7 @@ MESSAGE_END = int(MESSAGE_LENGTH * T_BIT * RATE) # Total indexes of message
 function_dictionary = {func0 : 0, func1 : 1, func2 : 2, func3 : 3} # All bits possible given as functions
 FUNCTION_ARRAY = [func0, func1, func2, func3]
 
-
+errors_dictionary = {}
 
 
 

@@ -32,7 +32,7 @@ def find_start(message_length: int, time_axis: list, amp_axis: list, hidden_func
     max_area = 0
     # Going through all possible starts in steps of 'accuracy'
     for i in range(start_index, end_index, accuracy):
-        area = calc_integral(time_axis, amp_axis, hidden_func, i, i + message_array_length)
+        area = numpy_calc_integral(time_axis, amp_axis, hidden_func, i, i + message_array_length)
         if area >= max_area:  # Update if a larger area is found
             max_area = area
             start_index = i
