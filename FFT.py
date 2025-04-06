@@ -28,7 +28,39 @@ def plot_fft(time_axis, amp_axis):
     plt.show()
 
 
+def plot_spectrogram(time, amps, NFFT=1024, noverlap=512, cmap='plasma'):
+    """
+    Plot a spectrogram from time and amplitude arrays.
 
-rate, amp_axis1, time_axis1 = read_wav_file('test_recordings/song_2_shakira_out.wav')
+    Parameters:
+        time (array-like): Time axis in seconds.
+        amps (array-like): Amplitude values (signal).
+        NFFT (int): FFT window size.
+        noverlap (int): Number of overlapping samples.
+        cmap (str): Colormap for the spectrogram.
 
-plot_fft(time_axis1, amp_axis1)
+    Returns:
+        None
+    """
+    # Calculate sampling rate from time axis
+    dt = np.mean(np.diff(time))
+    sample_rate = 1.0 / dt
+
+    # Plot
+    plt.figure(figsize=(10, 4))
+    plt.specgram(amps, Fs=sample_rate, NFFT=NFFT, noverlap=noverlap, cmap=cmap)
+    plt.title("Spectrogram")
+    plt.xlabel("Time [s]")
+    plt.ylabel("Frequency [Hz]")
+    plt.colorbar(label="Intensity [dB]")
+    plt.tight_layout()
+    plt.show()
+
+if __name__ == '__main__':
+
+    #encode('test_recordings/song_2_shakira.wav', 'test_recordings/song_2_shakira_out.wav')
+    rate, amp_axis1, time_axis1 = read_wav_file('test_recordings/song_2_shakira_out.wav')
+
+    plot_fft(time_axis1, amp_axis1)
+
+    plot_spectrogram(time_axis1, amp_axis1)
