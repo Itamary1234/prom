@@ -4,7 +4,7 @@ MESSAGE_LENGTH = 100 # Number of bits sent
 message_array = [0] * 26 + [1] * 26 + [2] * 24 + [3] * 24
 T_BIT = 0.4 # Time for each bit
 T_WORD = 1 # Time for opening word
-INITIAL_TIME = 1.3
+INITIAL_TIME = 2.3
 
 
 def start_func(t):
@@ -26,8 +26,8 @@ FUNCTION_ARRAY = [func0, func1, func2, func3]
 
 errors_dictionary = {}
 
-INPUT_FILE = 'test_recordings/song_2_shakira.wav'
-OUTPUT_FILE = 'test_recordings/song_2_shakira_out.wav'
+ENCODING_FILE = 'test_recordings/song_2_shakira.wav'
+DECODING_FILE = 'test_recordings/shakira_speaker_1.wav'
 
 
 

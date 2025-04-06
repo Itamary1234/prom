@@ -53,10 +53,11 @@ def encode(file_path_in : str, file_path_out : str):
 
 
 if __name__ == '__main__':
-    print("starting")
-    encode(INPUT_FILE,OUTPUT_FILE)
-    print("encode finished starting decode")
-    bits_array = decode(OUTPUT_FILE)
+    # print("starting")
+    # encode(ENCODING_FILE,DECODING_FILE)
+    # print("encode finished")
+    print("starting decode")
+    bits_array = decode(DECODING_FILE)
     print("decode finished")
     print(bits_array)
      # Checking for errors

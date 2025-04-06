@@ -17,11 +17,11 @@ def plot(x, y, x_name="time", y_name="data"):
 
 def read_wav_file(filename):
     rate, data = wav.read(filename)
-    # if data.ndim == 2:
-    #     new_data = np.zeros(len(data))
-    #     for i in range(len(data)):
-    #         new_data[i] = data[i][0]#+data[i][1]
-    #     data = new_data
+    if data.ndim == 2:
+        new_data = np.zeros(len(data))
+        for i in range(len(data)):
+            new_data[i] = data[i][0]#+data[i][1]
+        data = new_data
     data = data.astype(np.float64)
     dt=1.0/rate
     # time=np.arange(0, len(data)*dt, dt)
