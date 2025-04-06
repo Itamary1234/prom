@@ -1,7 +1,7 @@
 import numpy as np
 RATE = 48000
-MESSAGE_LENGTH = 50 # Number of bits sent
-message_array = [0] * 13 + [1] * 13 + [2] * 12 + [3] * 12
+MESSAGE_LENGTH = 1000 # Number of bits sent
+message_array = [0] * 260 + [1] * 260 + [2] * 240 + [3] * 240
 T_BIT = 0.2 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5.3

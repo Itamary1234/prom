@@ -52,7 +52,10 @@ def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_tim
     initial_ind = int(initial_time / dt)
     final_ind = int(final_time / dt)
     for i in range(initial_ind,final_ind):
-        amp_axis[i] = (func(time_axis[i]-initial_time) + amp_axis[i])
+        try:
+            amp_axis[i] = (func(time_axis[i]-initial_time) + amp_axis[i])
+        except OverflowError:
+            amp_axis[i]=0
 
 
 def encode_information(time_axis, amp_axis, initial_time, information):

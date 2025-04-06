@@ -3,7 +3,7 @@ from insert_bits import *
 
 
 def test():
-    rate, data, time = read_wav_file('test_recording_1.wav')
+    rate, data, time = read_wav_file('test_recordings/test_recording_1.wav')
     # plot(time, data)
     # print('rate = ', rate)
     new_data = insert_func_into_data_section(time, data, cos)
