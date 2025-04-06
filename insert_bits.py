@@ -17,11 +17,12 @@ def plot(x, y, x_name="time", y_name="data"):
 
 def read_wav_file(filename):
     rate, data = wav.read(filename)
-    if data.ndim == 2:
-        new_data = np.zeros(len(data))
-        for i in range(len(data)):
-            new_data[i] = data[i][0]#+data[i][1]
-        data = new_data
+    # if data.ndim == 2:
+    #     new_data = np.zeros(len(data))
+    #     for i in range(len(data)):
+    #         new_data[i] = data[i][0]#+data[i][1]
+    #     data = new_data
+    data = data.astype(np.float64)
     dt=1.0/rate
     # time=np.arange(0, len(data)*dt, dt)
     time = np.zeros(len(data))
@@ -29,6 +30,7 @@ def read_wav_file(filename):
     for i in range(0, len(time)):
        time[i] = t
        t += dt
+
     return rate, data, time
 
 def write_wav_file(filename, sample_rate, amp_axis):
@@ -40,7 +42,6 @@ def get_time(rate,data):
 
 def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_time, final_time):
     '''
-
     :param time_axis:
     :param amp_axis:
     :param func:
@@ -51,11 +52,21 @@ def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_tim
     dt = time_axis[1] - time_axis[0]
     initial_ind = int(initial_time / dt)
     final_ind = int(final_time / dt)
-    for i in range(initial_ind,final_ind):
-        try:
-            amp_axis[i] = (func(time_axis[i]-initial_time) + amp_axis[i])
-        except OverflowError:
-            amp_axis[i]=0
+
+
+    time_slice = time_axis[initial_ind:final_ind] - initial_time
+
+    try:
+        amp_axis[initial_ind:final_ind] += func(time_slice)
+    except FloatingPointError:
+        amp_axis[initial_ind:final_ind] = 0
+
+
+    # for i in range(initial_ind,final_ind):
+    #     try:
+    #         amp_axis[i] = (func(time_axis[i]-initial_time) + amp_axis[i])
+    #     except OverflowError:
+    #         amp_axis[i]=0
 
 
 def encode_information(time_axis, amp_axis, initial_time, information):
@@ -85,10 +96,3 @@ def encrypt(time_axis, amp_axis):
     insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, INITIAL_TIME, INITIAL_TIME + T_WORD)
     encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD,message_array)
 
-if __name__ == '__main__':
-    rate, data, time = read_wav_file('song_2_shakira.wav')
-    # plot(time, data)
-    # print('rate = ', rate)
-    plot(time, data)
-    encrypt(time, data)
-    plot(time, data,"new")
