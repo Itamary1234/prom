@@ -27,7 +27,9 @@ def decode(file_path_in : str) -> list:
 
     message_start = rec_find_start(T_WORD, time_axis, coded_amps, word) + T_WORD * rate
 
+    print("initial time = " + str((message_start/rate)-T_WORD))
     print("message_end = " +str(message_start))
+
 
     # Creating message graph
     message_time = time_axis[message_start:message_start + MESSAGE_END]
