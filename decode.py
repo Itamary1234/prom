@@ -55,21 +55,21 @@ def encode(file_path_in : str, file_path_out : str):
 
 
 if __name__ == '__main__':
-    # print("starting")
-    # encode(ENCODING_FILE,DECODING_FILE)
-    # print("encode finished")
+    print("starting")
+    encode(ENCODING_FILE,DECODING_FILE)
+    print("encode finished")
     print("starting decode")
     bits_array = decode(DECODING_FILE)
     print("decode finished")
-    print(bits_array)
+
      # Checking for errors
     errors = 0
-    for i in range(MESSAGE_LENGTH):
+    for i in range(0,MESSAGE_LENGTH, PARITY_BIT):
         try:
-            if message_array[i] != function_dictionary[bits_array[i]]:
-                errors += 1
-                print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i]]))
+
+            if message_array[i] != function_dictionary[bits_array[i//PARITY_BIT]]:
+                 errors += 1
+                 print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i//PARITY_BIT]]))
         except Exception as e:
             print('error')
-    errors_dictionary[tuple(FUNCTION_ARRAY)] = errors
-    print(errors_dictionary)
+    print('Number of errors: ' + str(errors))

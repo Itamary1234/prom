@@ -5,7 +5,11 @@
 # We use two main functions, calc_integral and find bits
 import numpy as np
 import math
+from scipy.signal import correlate
+from scipy.fft import fft, ifft
+from collections import Counter
 
+from CONSTANTS import PARITY_BIT
 
 
 def calc_integral(time_axis : list, amp_axis : list, func, initial_ind : int, final_ind : int) -> float:
@@ -48,6 +52,9 @@ def numpy_calc_integral(time_axis: np.ndarray, amp_axis: np.ndarray, func, initi
     time_diff = time_axis[initial_ind:final_ind] - initial_time
     func_vals = func(time_diff)
     area = np.sum(amp_axis[initial_ind:final_ind] * func_vals)  # Sum over the product
+    ###### Trying to use scipy library
+
+    ###################
     return area
 
 
@@ -86,6 +93,19 @@ def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : 
     return corr_funcs
 
 
+def parity_bits(bits_array : list) :
+        '''
+
+        :param bits_array: Array of functions representing bits
+        :return: Most common function
+
+        '''
+        counter = Counter(bits_array)
+
+        # Get the most common element and its count
+        most_common_element, count = counter.most_common(1)[0]
+        return most_common_element
+
 def numpy_find_bits(message_length: int, t_bit: float, time_axis: np.ndarray, amp_axis: np.ndarray, func_array: list) -> list:
     """
     :param t_bit: Time for each bit
@@ -117,6 +137,13 @@ def numpy_find_bits(message_length: int, t_bit: float, time_axis: np.ndarray, am
     for i in range(message_length):
         max_area_index = np.argmax(areas[i, :])  # Find the index of the maximum area
         corr_funcs.append(func_array[max_area_index])  # Append the corresponding function
+
+    # Adding parity bit for error correction
+    if PARITY_BIT != 1:
+        bits = []
+        for i in range(0, len(corr_funcs) - PARITY_BIT, PARITY_BIT):
+            bits.append(parity_bits(corr_funcs[i : i + 3]))
+        return bits
 
     return corr_funcs
 
