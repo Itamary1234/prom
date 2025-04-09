@@ -42,7 +42,7 @@ FUNCTION_ARRAY = [func0, func1, func2, func3]
 errors_dictionary = {}
 
 ENCODING_FILE = 'test_recordings/song_2_shakira.wav'
-DECODING_FILE = 'test_recordings/shakira_speaker_1.wav'
+DECODING_FILE = 'test_recordings/Shakira_speaker_3.wav'
 
 
 
