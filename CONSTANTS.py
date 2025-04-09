@@ -1,20 +1,21 @@
 import numpy as np
 RATE = 48000
-MESSAGE_LENGTH = 100 # Number of bits sent
-message_array = [0] * 26 + [1] * 26 + [2] * 24 + [3] * 24
-T_BIT = 0.4 # Time for each bit
+MESSAGE_LENGTH = 900 # Number of bits sent
+message_array = [0,0,0,1,1,1] * 150
+T_BIT = 0.2 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 2.3
+PARITY_BIT = 3
 
 
 def start_func(t):
     return 531 * np.sin(t * 2 * np.pi)
 
 freq0 = 1031
-freq1 = -1031
-freq2 = 1741
-freq3 = -1741
-AMP = 2000
+freq1 = 1231
+freq2 = 1441
+freq3 = 1741
+AMP = 1200
 def func0(t):
     return AMP * np.sin(t*freq0)
 def func1(t):
