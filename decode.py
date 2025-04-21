@@ -22,6 +22,7 @@ def decode(file_path_in : str) -> list:
 
     # Getting data, plotting it
     rate, coded_amps, time_axis = read_wav_file(file_path_in)
+    plot(time_axis, coded_amps)
 
     print('Data Read, Here We GO')
     # Finding the start of the message (index) using the find start function

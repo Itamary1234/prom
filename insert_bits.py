@@ -101,6 +101,7 @@ def encrypt(time_axis, amp_axis):
     :param amp_axis:
     :return:
     '''
+    insert_func_into_data_section_by_time(time_axis, amp_axis, test_func, 3.5, 4)
     insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, INITIAL_TIME, INITIAL_TIME + T_WORD)
     encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD,message_array)
 
