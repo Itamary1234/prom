@@ -1,8 +1,8 @@
 import numpy as np
 RATE = 48000
-MESSAGE_LENGTH = 900 # Number of bits sent
-message_array = [0,0,0,1,1,1] * 150
-T_BIT = 0.2 # Time for each bit
+MESSAGE_LENGTH = 1800 # Number of bits sent
+message_array = [0,0,0,1,1,1] * 300
+T_BIT = 0.1 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 2.3
 PARITY_BIT = 3
