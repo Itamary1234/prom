@@ -56,9 +56,9 @@ def encode(file_path_in : str, file_path_out : str):
 
 
 if __name__ == '__main__':
-    print("starting")
-    record()
-    print("finished recording")
+    # print("starting")
+    # record()
+    # print("finished recording")
     # encode(ENCODING_FILE,DECODING_FILE)
     # print("encode finished")
     print("starting decode")

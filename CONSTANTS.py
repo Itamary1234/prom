@@ -7,7 +7,7 @@ T_BIT = 0.1 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5
 PARITY_BIT = 1
-
+CHIPPING_CODE = (1,1,-1,1)
 
 def start_func(t):
     return 1310 * np.sin(t * 800 * np.pi)
