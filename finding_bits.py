@@ -58,42 +58,6 @@ def numpy_calc_integral(time_axis: np.ndarray, amp_axis: np.ndarray, func, initi
     return area
 
 
-def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : list, func_array : list) -> list:
-    '''
-
-    :param t_bit: Time for each bit
-    :param time_axis: The time axis of the wave
-    :param amp_axis: The Y axis of the wave representing amplitude
-    :param func_array: All funcs we want to check
-    :param message_length: Number of bits
-    :return: Array of funcs with the highest integral
-    '''
-    # Making an array for correct / correlating funcs
-    corr_funcs = []
-    # Calculating some constants
-    time_interval = time_axis[1] - time_axis[0] # Time between each measurement
-
-    bit_array_length = int(t_bit / time_interval) # Number of indexes for each bit
-    db = int(t_bit*0.05 / time_interval)#the start and end of the message
-
-    # Going through each bit
-    for i in range(message_length):
-
-        max_area = 0
-        correlating_function = None
-        # Checking correlation with each function
-        for func in func_array:
-            # Calculating area of multiplication of wave by function
-            area = calc_integral(time_axis, amp_axis, func, i * bit_array_length + db, (i + 1) * bit_array_length - db)
-            # If this function fits better, keep it
-            if area > max_area:
-                max_area = area
-                correlating_function = func
-        corr_funcs.append(correlating_function)
-
-    return corr_funcs
-
-
 def parity_bits(bits_array : list) :
         '''
 
