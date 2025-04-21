@@ -80,6 +80,7 @@ CHAR_TO_BINARY = {
     '-': [1,1,1,1,1],
 }
 
+BINARY_TO_CHAR = {tuple(v): k for k, v in CHAR_TO_BINARY.items()}
 
 
 

@@ -34,7 +34,7 @@ def hamming_7_4_decode(encoded_bits):
     error_position = s1 * 1 + s2 * 2 + s3 * 4
 
     if error_position != 0:
-        print(f"Error detected at position {error_position}")
+        # print(f"Error detected at position {error_position}")
         encoded_bits[error_position - 1] ^= 1  # Correct the error
 
     # Extract the decoded data bits
@@ -45,16 +45,44 @@ def hamming_7_4_decode(encoded_bits):
 
 
 
-
 def string_to_bits(input_string):
-    return CHAR_TO_BINARY[input_string]
+    bits=[]
+    for char in input_string:
+        curr_bits = CHAR_TO_BINARY[char]
+        for b in curr_bits:
+            bits.append(b)
 
-def bits_to_string(bits):
+    while not len(bits) % 4 ==0:
+        bits.append(0)
+    return bits
+
+
+
+
+def bits_to_string(bits, chunk_size = 5):
     string = ""
+    for i in range(0, len(bits), chunk_size):
+        if i+chunk_size >= len(bits):
+            break
+        chunk = bits[i:i + chunk_size]
+        string += BINARY_TO_CHAR[tuple(chunk)]
+    return string
+
+def clean_string(text: str) -> str:
+    text = text.lower()
+    result = ""
+    for char in text:
+        if char in CHAR_TO_BINARY:
+            result += char
+    return result
 
 
 def encode_string(input_string):
     '''Encode a string into Hamming(7,4) code'''
+
+    input_string = clean_string(input_string)
+
+
     # Convert string to bits
     bits = string_to_bits(input_string)
 
@@ -67,24 +95,13 @@ def encode_string(input_string):
     return encoded_bits
 
 
-def decode_string(encoded_bits):
+def decode_bits(bits):
     '''Decode a Hamming(7,4) encoded message back to a string'''
     # Process in 7-bit chunks
     decoded_bits = []
-    for i in range(0, len(encoded_bits), 7):
-        chunk = encoded_bits[i:i + 7]
+    for i in range(0, len(bits), 7):
+        chunk = bits[i:i + 7]
         decoded_bits.extend(hamming_7_4_decode(chunk))  # Decode each chunk
 
     # Convert decoded bits back to string
     return bits_to_string(decoded_bits)
-
-
-# Try it!
-data = [1,1,0,1]
-encoded = hamming_7_4_encode(data)
-print("Encoded:", encoded)
-
-# Introduce error
-encoded[5] ^= 1
-decoded = hamming_7_4_decode(encoded)
-print("Decoded:", decoded)
