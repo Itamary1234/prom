@@ -44,7 +44,10 @@ def decode(file_path_in : str) -> list:
 def encode(file_path_in : str, file_path_out : str):
     # Getting data, plotting it
     rate, coded_amps, time_axis = read_wav_file(file_path_in)
+
     plot(time_axis, coded_amps)
+
+
 
     # Encoding signal in data and plotting it
     encrypt(time_axis, coded_amps)
@@ -59,18 +62,18 @@ if __name__ == '__main__':
     print("starting")
     encode(ENCODING_FILE,DECODING_FILE)
     print("encode finished")
-    print("starting decode")
-    bits_array = decode(DECODING_FILE)
-    print("decode finished")
-
-     # Checking for errors
-    errors = 0
-    for i in range(0,MESSAGE_LENGTH, PARITY_BIT):
-        try:
-
-            if message_array[i] != function_dictionary[bits_array[i//PARITY_BIT]]:
-                 errors += 1
-                 print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i//PARITY_BIT]]))
-        except Exception as e:
-            print('error, problem in loading decoded bits')
-    print('Number of errors: ' + str(errors))
+    # print("starting decode")
+    # bits_array = decode(DECODING_FILE)
+    # print("decode finished")
+    #
+    #  # Checking for errors
+    # errors = 0
+    # for i in range(0,MESSAGE_LENGTH, PARITY_BIT):
+    #     try:
+    #
+    #         if message_array[i] != function_dictionary[bits_array[i//PARITY_BIT]]:
+    #              errors += 1
+    #              print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i//PARITY_BIT]]))
+    #     except Exception as e:
+    #         print('error, problem in loading decoded bits')
+    # print('Number of errors: ' + str(errors))

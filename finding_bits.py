@@ -74,6 +74,7 @@ def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : 
     time_interval = time_axis[1] - time_axis[0] # Time between each measurement
 
     bit_array_length = int(t_bit / time_interval) # Number of indexes for each bit
+    db = int(t_bit*0.05 / time_interval)#the start and end of the message
 
     # Going through each bit
     for i in range(message_length):
@@ -83,7 +84,7 @@ def find_bits(message_length : int, t_bit : float, time_axis : list, amp_axis : 
         # Checking correlation with each function
         for func in func_array:
             # Calculating area of multiplication of wave by function
-            area = calc_integral(time_axis, amp_axis, func, i * bit_array_length, (i + 1) * bit_array_length)
+            area = calc_integral(time_axis, amp_axis, func, i * bit_array_length + db, (i + 1) * bit_array_length - db)
             # If this function fits better, keep it
             if area > max_area:
                 max_area = area
