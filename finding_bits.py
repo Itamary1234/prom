@@ -131,18 +131,20 @@ def numpy_find_bits(message_length: int, t_bit: float, time_axis: np.ndarray, am
 
         # For each function in func_array, calculate the area
         for j, func in enumerate(func_array):
-            areas[i, j] = numpy_calc_integral(time_axis, amp_axis, func, start_ind, end_ind)
+            # Trying to correlate with cos too
+            areas[i, j] = (numpy_calc_integral(time_axis, amp_axis, func[0], start_ind, end_ind)**2) + (numpy_calc_integral(time_axis, amp_axis, func[1], start_ind, end_ind)**2)
 
     # Select the best matching function for each bit
     for i in range(message_length):
         max_area_index = np.argmax(areas[i, :])  # Find the index of the maximum area
+        # Added[0] for cos correlation
         corr_funcs.append(func_array[max_area_index])  # Append the corresponding function
 
     # Adding parity bit for error correction
     if PARITY_BIT != 1:
         bits = []
         for i in range(0, len(corr_funcs) - PARITY_BIT, PARITY_BIT):
-            bits.append(parity_bits(corr_funcs[i : i + 3]))
+            bits.append(parity_bits(corr_funcs[i : i + PARITY_BIT]))
         return bits
 
     return corr_funcs

@@ -59,7 +59,7 @@ def plot_spectrogram(time, amps, NFFT=1024, noverlap=512, cmap='plasma'):
 if __name__ == '__main__':
 
     #encode('test_recordings/song_2_shakira.wav', 'test_recordings/song_2_shakira_out.wav')
-    rate, amp_axis1, time_axis1 = read_wav_file('test_recordings/song_2_shakira_out.wav')
+    rate, amp_axis1, time_axis1 = read_wav_file('test_recordings/shakira_speaker_1.wav')
 
     plot_fft(time_axis1, amp_axis1)
 
