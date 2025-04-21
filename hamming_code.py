@@ -1,6 +1,8 @@
 from CONSTANTS import *
 
 
+
+
 def hamming_7_4_encode(data_bits):
     '''
 
@@ -53,8 +55,10 @@ def bits_to_string(bits):
     string = ""
 
 
-def encode_string(input_string):
+def encode_string(input_string : str):
     '''Encode a string into Hamming(7,4) code'''
+
+
     # Convert string to bits
     bits = string_to_bits(input_string)
 
@@ -67,7 +71,7 @@ def encode_string(input_string):
     return encoded_bits
 
 
-def decode_string(encoded_bits):
+def decode_bits(encoded_bits):
     '''Decode a Hamming(7,4) encoded message back to a string'''
     # Process in 7-bit chunks
     decoded_bits = []
@@ -77,6 +81,8 @@ def decode_string(encoded_bits):
 
     # Convert decoded bits back to string
     return bits_to_string(decoded_bits)
+
+
 
 
 # Try it!

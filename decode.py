@@ -8,6 +8,7 @@ from finding_start import *
 from insert_bits import *
 from record_sound import *
 from CONSTANTS import *
+from hamming_code import *
 ##########################
 
 
@@ -42,26 +43,14 @@ def decode(file_path_in : str) -> list:
     return bits_array
 
 
-def encode(file_path_in : str, file_path_out : str):
-    # Getting data, plotting it
-    rate, coded_amps, time_axis = read_wav_file(file_path_in)
-    plot(time_axis, coded_amps)
 
-    # Encoding signal in data and plotting it
-    encrypt(time_axis, coded_amps)
-    plot(time_axis, coded_amps)
-
-    # Writing into file so we could hear that recording is hidden
-    write_wav_file(file_path_out, rate, coded_amps)
-    return rate, coded_amps, time_axis
 
 
 if __name__ == '__main__':
-    # print("starting")
-    # record()
-    # print("finished recording")
-    # encode(ENCODING_FILE,DECODING_FILE)
-    # print("encode finished")
+    print("starting")
+    record()
+    print("finished recording")
+
     print("starting decode")
     bits_array = decode("test_recordings/recording_from_python1.wav")
     print("decode finished")
@@ -77,4 +66,6 @@ if __name__ == '__main__':
         except Exception as e:
             print('error, problem in loading decoded bits')
     print('Number of errors: ' + str(errors))
+    sentence = decode_bits(bits_array)
+    print('Sentence Decoded: ' + sentence)
     plot_file("test_recordings/recording_from_python1.wav")

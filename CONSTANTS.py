@@ -6,6 +6,7 @@ T_BIT = 0.1 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5
 PARITY_BIT = 1
+CUT_PERCENT = 0.1
 
 
 def start_func(t):
