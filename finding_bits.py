@@ -12,29 +12,6 @@ from collections import Counter
 from CONSTANTS import PARITY_BIT
 
 
-def calc_integral(time_axis : list, amp_axis : list, func, initial_ind : int, final_ind : int) -> float:
-    '''
-    :param func: A function composing of sin and cos waves
-    :param time_axis: The time axis of the wave
-    :param amp_axis: The Y axis of the wave representing amplitude
-    :param initial_ind: The index to start integral from
-    :param final_ind: The index to end integral
-    :return: The area under the graph of the func * wave
-    '''
-      # Setting a variable for the area.
-    area = 0
-    # Acounting for phase
-    initial_time=time_axis[initial_ind]
-    for i in range(initial_ind,final_ind):
-        # Setting variables for convenience
-        time = time_axis[i]
-        amp = amp_axis[i]
-        # Calculating function value at time, when setting 0 at the beginning
-        func_val = func(time-initial_time)
-        # Adding to area
-        area += amp * func_val
-    return area
-
 
 def numpy_calc_integral(time_axis: np.ndarray, amp_axis: np.ndarray, func, initial_ind: int, final_ind: int) -> float:
     """
@@ -86,13 +63,14 @@ def numpy_find_bits(message_length: int, t_bit: float, time_axis: np.ndarray, am
     # Calculate the constants
     time_interval = time_axis[1] - time_axis[0]  # Time between each measurement
     bit_array_length = int(t_bit / time_interval)  # Number of indexes for each bit
+    db  = int((t_bit * 0.05)/ time_interval)
 
     # Precompute the area values for each bit window
     areas = np.zeros((message_length, len(func_array)))
 
     for i in range(message_length):
-        start_ind = i * bit_array_length
-        end_ind = (i + 1) * bit_array_length
+        start_ind = i * bit_array_length + db
+        end_ind = (i + 1) * bit_array_length - db
 
         # For each function in func_array, calculate the area
         for j, func in enumerate(func_array):
