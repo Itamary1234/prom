@@ -14,6 +14,10 @@ def plot(x, y, x_name="time", y_name="data"):
     plt.grid()
     plt.show()
 
+def plot_file(file_path):
+    rate, coded_amps, time_axis = read_wav_file(file_path)
+    plot(time_axis, coded_amps)
+
 
 def read_wav_file(filename):
     rate, data = wav.read(filename)

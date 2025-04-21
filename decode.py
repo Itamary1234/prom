@@ -6,6 +6,7 @@ import numpy as np
 
 from finding_start import *
 from insert_bits import *
+from record_sound import *
 from CONSTANTS import *
 ##########################
 
@@ -21,7 +22,6 @@ def decode(file_path_in : str) -> list:
 
     # Getting data, plotting it
     rate, coded_amps, time_axis = read_wav_file(file_path_in)
-    plot(time_axis, coded_amps)
 
     print('Data Read, Here We GO')
     # Finding the start of the message (index) using the find start function
@@ -57,10 +57,12 @@ def encode(file_path_in : str, file_path_out : str):
 
 if __name__ == '__main__':
     print("starting")
-    encode(ENCODING_FILE,DECODING_FILE)
-    print("encode finished")
+    record()
+    print("finished recording")
+    # encode(ENCODING_FILE,DECODING_FILE)
+    # print("encode finished")
     print("starting decode")
-    bits_array = decode(DECODING_FILE)
+    bits_array = decode("test_recordings/recording_from_python1.wav")
     print("decode finished")
 
      # Checking for errors
@@ -74,3 +76,4 @@ if __name__ == '__main__':
         except Exception as e:
             print('error, problem in loading decoded bits')
     print('Number of errors: ' + str(errors))
+    plot_file("test_recordings/recording_from_python1.wav")

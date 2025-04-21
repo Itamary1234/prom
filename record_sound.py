@@ -4,7 +4,7 @@ from CONSTANTS import *
 
 
 def record():
-    recording_duration = 10  # seconds
+    recording_duration = 25  # seconds
 
     print("Recording...")
     audio = sd.rec(int(recording_duration * RATE), samplerate=RATE, channels=1, dtype='int16')
@@ -13,3 +13,4 @@ def record():
 
     # Save to WAV
     write("test_recordings/recording_from_python1.wav", RATE, audio)
+
