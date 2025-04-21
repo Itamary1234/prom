@@ -22,6 +22,7 @@ def read_wav_file(filename):
         for i in range(len(data)):
             new_data[i] = data[i][0]#+data[i][1]
         data = new_data
+    # data = np.zeros(len(data))
     data = data.astype(np.float64)
     dt=1.0/rate
     # time=np.arange(0, len(data)*dt, dt)
@@ -56,6 +57,9 @@ def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_tim
 
     time_slice = time_axis[initial_ind:final_ind] - initial_time
 
+    # Checking if func is tuple, for cos correlation
+    if isinstance(func, tuple):
+        func = func[0]
     try:
         amp_axis[initial_ind:final_ind] += func(time_slice)
     except FloatingPointError:

@@ -71,5 +71,5 @@ if __name__ == '__main__':
                  errors += 1
                  print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i//PARITY_BIT]]))
         except Exception as e:
-            print('error')
+            print('error, problem in loading decoded bits')
     print('Number of errors: ' + str(errors))
