@@ -50,22 +50,27 @@ if __name__ == '__main__':
     print("starting")
     record()
     print("finished recording")
-
     print("starting decode")
     bits_array = decode("test_recordings/recording_from_python1.wav")
     print("decode finished")
 
      # Checking for errors
-    errors = 0
-    for i in range(0,MESSAGE_LENGTH, PARITY_BIT):
-        try:
+    # errors = 0
+    # for i in range(0,MESSAGE_LENGTH, PARITY_BIT):
+    #     try:
+    #
+    #         if message_array[i] != function_dictionary[bits_array[i//PARITY_BIT]]:
+    #              errors += 1
+    #              print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i//PARITY_BIT]]))
+    #     except Exception as e:
+    #         print('error, problem in loading decoded bits')
+    # print('Number of errors: ' + str(errors))
 
-            if message_array[i] != function_dictionary[bits_array[i//PARITY_BIT]]:
-                 errors += 1
-                 print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i//PARITY_BIT]]))
-        except Exception as e:
-            print('error, problem in loading decoded bits')
-    print('Number of errors: ' + str(errors))
-    sentence = decode_bits(bits_array)
+    bits = []
+    for bit in bits_array:
+        bits.append(function_dictionary[bit])
+
+    print('bits = '+str(bits))
+    sentence = decode_bits(bits)
     print('Sentence Decoded: ' + sentence)
     plot_file("test_recordings/recording_from_python1.wav")
