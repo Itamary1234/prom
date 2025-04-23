@@ -28,7 +28,7 @@ def decode(file_path_in : str) -> list:
     print('Data Read, Here We GO')
     # Finding the start of the message (index) using the find start function
 
-    message_start = rec_find_start(T_WORD, time_axis, coded_amps, word) + T_WORD * rate
+    message_start = rec_find_start(time_axis, coded_amps) + T_WORD * rate
 
     print("initial time = " + str((message_start/rate)-T_WORD))
     print("message_end = " +str(message_start))
@@ -39,7 +39,7 @@ def decode(file_path_in : str) -> list:
     message_amp = coded_amps[message_start:message_start + MESSAGE_END]
 
     # Finding bits using find bits functions
-    bits_array = numpy_find_bits(MESSAGE_LENGTH, T_BIT, message_time, message_amp, FUNCTION_ARRAY)
+    bits_array = numpy_find_bits(message_time, message_amp)
     return bits_array
 
 
@@ -50,27 +50,12 @@ if __name__ == '__main__':
     # print("starting")
     # record()
     # print("finished recording")
-    print("starting decode")
-    bits_array = decode("test_recordings/shakira_out.wav")
+    # print("starting decode")
+    bits = decode("test_recordings/recording_from_python1.wav")
     print("decode finished")
 
-     # Checking for errors
-    # errors = 0
-    # for i in range(0,MESSAGE_LENGTH, PARITY_BIT):
-    #     try:
-    #
-    #         if message_array[i] != function_dictionary[bits_array[i//PARITY_BIT]]:
-    #              errors += 1
-    #              print('Real Bit = ' + str(message_array[i]) + ' Decode Bit = ' + str(function_dictionary[bits_array[i//PARITY_BIT]]))
-    #     except Exception as e:
-    #         print('error, problem in loading decoded bits')
-    # print('Number of errors: ' + str(errors))
-
-    bits = []
-    for bit in bits_array:
-        bits.append(function_dictionary[bit])
 
     print('bits = '+str(bits))
     sentence = decode_bits(bits)
     print('Sentence Decoded: ' + sentence)
-    plot_file("test_recordings/recording_from_python1.wav")
+
