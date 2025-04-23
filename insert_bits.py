@@ -67,14 +67,8 @@ def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_tim
     try:
         amp_axis[initial_ind:final_ind] += func(time_slice)
     except FloatingPointError:
+        print("FloatingPointError, initial_time = " + initial_time+", final_time = " + final_time)
         amp_axis[initial_ind:final_ind] = 0
-
-
-    # for i in range(initial_ind,final_ind):
-    #     try:
-    #         amp_axis[i] = (func(time_axis[i]-initial_time) + amp_axis[i])
-    #     except OverflowError:
-    #         amp_axis[i]=0
 
 
 def encode_information(time_axis, amp_axis, initial_time, information):
@@ -89,9 +83,21 @@ def encode_information(time_axis, amp_axis, initial_time, information):
     '''
     current_time = initial_time
     for bit in information:
-        f = FUNCTION_ARRAY[bit]
-        insert_func_into_data_section_by_time(time_axis, amp_axis, f, current_time, current_time + T_BIT)
-        current_time = current_time + T_BIT
+        # now we insert the mini_bits
+        for mini_index in range(BIT_LENGTH):
+            #we want the index of the mini bit and then the index of the bit and then the sin func
+            f = MINI_BIT_FUNCTION_ARRAY[mini_index][bit][0]
+            insert_func_into_data_section_by_time(time_axis, amp_axis, f, current_time, current_time + T_MINI_BIT)
+            current_time = current_time + T_MINI_BIT
+
+
+
+    # this is the code before mini_bits
+    # current_time = initial_time
+    # for bit in information:
+    #     f = FUNCTION_ARRAY[bit]
+    #     insert_func_into_data_section_by_time(time_axis, amp_axis, f, current_time, current_time + T_BIT)
+    #     current_time = current_time + T_BIT
 
 
 def encrypt(time_axis, amp_axis, information : list):
@@ -102,7 +108,7 @@ def encrypt(time_axis, amp_axis, information : list):
     :param information: bits to encode
     :return:
     '''
-    # insert_func_into_data_section_by_time(time_axis, amp_axis, test_func, 3.5, 4)
+    insert_func_into_data_section_by_time(time_axis, amp_axis, test_func, 3.5, 4)
     insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, INITIAL_TIME, INITIAL_TIME + T_WORD)
     encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD, information)
 

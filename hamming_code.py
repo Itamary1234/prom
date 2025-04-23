@@ -109,15 +109,13 @@ def decode_bits(bits):
     '''Decode a Hamming(7,4) encoded message back to a string'''
     # Process in 7-bit chunks
 
-    encoded_bits = []
+    #this part extract the chunks from the mixed way
     number_of_chunks = len(bits) // 7
     decoded_chunks = []
     for i in range(number_of_chunks):
         decoded_chunks.append([])
         for j in range(7):
             decoded_chunks[i].append(bits[i + j * number_of_chunks])
-
-
 
     decoded_bits = []
 
