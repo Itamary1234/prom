@@ -17,8 +17,8 @@ def test_func(t):
 # freq0 = 1031
 # freq1 = 1231
 
-freq0 = 2000
-freq1 = 2250
+freq0 = 1500 * np.pi
+freq1 = 4084
 
 
 AMP = 2000
