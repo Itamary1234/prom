@@ -5,6 +5,8 @@
 # We use two main functions, calc_integral and find bits
 import numpy as np
 import math
+
+from numpy.ma.extras import average
 from scipy.signal import correlate
 from scipy.fft import fft, ifft
 from collections import Counter
@@ -28,9 +30,7 @@ def numpy_calc_integral(time_axis: np.ndarray, amp_axis: np.ndarray, func, initi
     time_diff = time_axis[initial_ind:final_ind] - initial_time
     func_vals = func(time_diff)
     area = np.sum(amp_axis[initial_ind:final_ind] * func_vals)  # Sum over the product
-    ###### Trying to use scipy library
 
-    ###################
     return area
 
 
@@ -66,30 +66,47 @@ def numpy_find_bits(message_length: int, t_bit: float, time_axis: np.ndarray, am
     bit_array_length = int(t_bit / time_interval)  # Number of indexes for each bit
     db = int((t_bit * CUT_PERCENT)/ time_interval)
 
-    # Precompute the area values for each bit window
-    areas = np.zeros((message_length, len(func_array)))
+    bits = []
 
     for i in range(message_length):
         start_ind = i * bit_array_length + db
         end_ind = (i + 1) * bit_array_length - db
 
-        # For each function in func_array, calculate the area
-        for j, func in enumerate(func_array):
-            # Trying to correlate with cos too
-            areas[i, j] = (numpy_calc_integral(time_axis, amp_axis, func[0], start_ind, end_ind)**2) + (numpy_calc_integral(time_axis, amp_axis, func[1], start_ind, end_ind)**2)
 
-    # Select the best matching function for each bit
-    for i in range(message_length):
-        max_area_index = np.argmax(areas[i, :])  # Find the index of the maximum area
-        # Added[0] for cos correlation
-        corr_funcs.append(func_array[max_area_index])  # Append the corresponding function
+        # DSSS Experiments
+        mini_bit = [] # mini bit array, representing a bit
+        certainty_array = [] # Certainty values array
 
-    # Adding parity bit for error correction
-    if PARITY_BIT != 1:
-        bits = []
-        for i in range(0, len(corr_funcs) - PARITY_BIT, PARITY_BIT):
-            bits.append(parity_bits(corr_funcs[i : i + PARITY_BIT]))
-        return bits
+        for k in range(BIT_LENGTH):
+            possible_bits = FUNCTION_ARRAY[k] # Array of two tuples representing 0 and 1
+            # Now we need to change func array in next for loop to possible bits
+            area_zero = (numpy_calc_integral(time_axis, amp_axis, possible_bits[0][0], start_ind, end_ind) ** 2) + (
+                        numpy_calc_integral(time_axis, amp_axis, possible_bits[0][1], start_ind, end_ind) ** 2)
 
-    return corr_funcs
+            area_one = (numpy_calc_integral(time_axis, amp_axis, possible_bits[1][0], start_ind, end_ind) ** 2) + (
+                    numpy_calc_integral(time_axis, amp_axis, possible_bits[1][1], start_ind, end_ind) ** 2)
+
+            if area_zero < area_one:
+                mini_bit.append(1)
+                # Checking how sure I am that the bit is actually the bit
+                certainty = 1 - (area_zero / area_one)
+            else:
+                mini_bit.append(-1)
+                certainty = 1 - (area_one / area_zero)
+            # Keeping track of how sure I am in each bit
+            certainty_array.append(certainty)
+
+        # Calculating bit_value by multiplying the two arrays.
+        mini_bit = np.array(mini_bit)
+        certainty_array = np.array(certainty_array)
+        bit_value = np.sum(mini_bit * certainty_array)
+
+        if bit_value < 0:
+            bits.append(0)
+        else:
+            bits.append(1)
+
+
+
+    return bits
 

@@ -1,11 +1,10 @@
 import numpy as np
 RATE = 48000
 message_array = [0,1,0,1,0,1] * 30
-MESSAGE_LENGTH = 154
+MESSAGE_LENGTH = 196
 T_BIT = 0.1 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5
-PARITY_BIT = 1
 CUT_PERCENT = 0.1
 
 
@@ -17,11 +16,13 @@ def test_func(t):
 # freq0 = 1031
 # freq1 = 1231
 
-freq0 = 1500 * np.pi
-freq1 = 4084
 
 
-AMP = 2000
+freq0 = 2000
+freq1 = 2250
+
+
+AMP = 10000
 def func0(t):
     return AMP * np.sin(t*freq0)
 def func1(t):
@@ -40,6 +41,7 @@ MESSAGE_END = int(MESSAGE_LENGTH * T_BIT * RATE) # Total indexes of message
 function_dictionary = {(func0,func0_cos) : 0, (func1,func1_cos) : 1} # All bits possible given as functions
 # Tuple for cosinus correlation too
 FUNCTION_ARRAY = [(func0,func0_cos),(func1,func1_cos)]
+FUNCTION_ARRAY = [freq0, freq1]
 
 errors_dictionary = {}
 
