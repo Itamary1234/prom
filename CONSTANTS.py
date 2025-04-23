@@ -10,7 +10,7 @@ CUT_PERCENT = 0.1
 
 
 def start_func(t):
-    return 1310 * np.sin(t * 800 * np.pi)
+    return 2310 * np.sin(t * 800 * np.pi)
 def test_func(t):
     return 30000 * np.sin(t * 2000 * np.pi)
 
@@ -21,7 +21,7 @@ freq0 = 2000
 freq1 = 2250
 
 
-AMP = 1000
+AMP = 2000
 def func0(t):
     return AMP * np.sin(t*freq0)
 def func1(t):
@@ -48,6 +48,7 @@ DECODING_FILE = 'test_recordings/shakira_out.wav'
 
 
 CHAR_TO_BINARY = {
+    '~': [0,0,0,0,0],
     'a': [0,0,0,0,1],
     'b': [0,0,0,1,0],
     'c': [0,0,0,1,1],

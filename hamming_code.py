@@ -86,11 +86,18 @@ def encode_string(input_string):
     # Convert string to bits
     bits = string_to_bits(input_string)
 
+
     # Process in 4-bit chunks
-    encoded_bits = []
+    chunks = []
     for i in range(0, len(bits), 4):
         chunk = bits[i:i + 4]
-        encoded_bits.extend(hamming_7_4_encode(chunk))  # Encode each chunk
+        chunks.append(hamming_7_4_encode(chunk))  # Encode each chunk
+
+    number_of_chunks = len(chunks)
+    encoded_bits = [0]*number_of_chunks*7
+    for j in range(7):
+        for i in range(number_of_chunks):
+            encoded_bits[j * number_of_chunks + i] = chunks[i][j]
 
     return encoded_bits
 
@@ -98,10 +105,22 @@ def encode_string(input_string):
 def decode_bits(bits):
     '''Decode a Hamming(7,4) encoded message back to a string'''
     # Process in 7-bit chunks
+
+    encoded_bits = []
+    number_of_chunks = len(bits) // 7
+    decoded_chunks = []
+    for i in range(number_of_chunks):
+        decoded_chunks.append([])
+        for j in range(7):
+            decoded_chunks[i].append(bits[i + j * number_of_chunks])
+
+
+
     decoded_bits = []
-    for i in range(0, len(bits), 7):
-        chunk = bits[i:i + 7]
-        decoded_bits.extend(hamming_7_4_decode(chunk))  # Decode each chunk
+
+    for i in range(0, len(decoded_chunks)):
+        decoded_bits.extend(hamming_7_4_decode(decoded_chunks[i]))  # Decode each chunk
+
 
     # Convert decoded bits back to string
     return bits_to_string(decoded_bits)
