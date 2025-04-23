@@ -65,7 +65,10 @@ def bits_to_string(bits, chunk_size = 5):
         if i+chunk_size >= len(bits):
             break
         chunk = bits[i:i + chunk_size]
-        string += BINARY_TO_CHAR[tuple(chunk)]
+        try:
+            string += BINARY_TO_CHAR[tuple(chunk)]
+        except:
+            print('exception, chunk = '+str(chunk))
     return string
 
 def clean_string(text: str) -> str:

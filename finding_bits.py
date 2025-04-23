@@ -9,10 +9,7 @@ from scipy.signal import correlate
 from scipy.fft import fft, ifft
 from collections import Counter
 
-from CONSTANTS import PARITY_BIT
-
-
-
+from CONSTANTS import *
 
 
 def numpy_calc_integral(time_axis: np.ndarray, amp_axis: np.ndarray, func, initial_ind: int, final_ind: int) -> float:
