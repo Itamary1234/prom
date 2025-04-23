@@ -42,6 +42,8 @@ function_dictionary = {(func0,func0_cos) : 0, (func1,func1_cos) : 1} # All bits 
 # Tuple for cosinus correlation too
 FUNCTION_ARRAY = [(func0,func0_cos),(func1,func1_cos)]
 
+errors_dictionary = {}
+
 ENCODING_FILE = 'test_recordings/song_2_shakira.wav'
 DECODING_FILE = 'test_recordings/shakira_out.wav'
 
