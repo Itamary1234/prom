@@ -22,7 +22,7 @@ freq0 = 2000
 freq1 = 2250
 
 
-AMP = 10000
+AMP = 2000
 def func0(t):
     return AMP * np.sin(t*freq0)
 def func1(t):
