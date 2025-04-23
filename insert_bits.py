@@ -71,12 +71,13 @@ def insert_func_into_data_section_by_time(time_axis, amp_axis, func, initial_tim
         amp_axis[initial_ind:final_ind] = 0
 
 
-def encode_information(time_axis, amp_axis, initial_time, information):
+def insert_bits_as_sound(time_axis, amp_axis, initial_time, information):
     '''
     this function changes amps itself
+    :param initial_time:
     :param time_axis:
     :param amp_axis:
-    :param information: array of the bits [0,1,2,2,3...]
+    :param information: array of the bits [0,1,0,1,1,...]
     :param func_array: all the function matching the bits
     :param t_bit: time of each bit
     :return: nothing
@@ -110,5 +111,5 @@ def encrypt(time_axis, amp_axis, information : list):
     '''
     insert_func_into_data_section_by_time(time_axis, amp_axis, test_func, 3.5, 4)
     insert_func_into_data_section_by_time(time_axis, amp_axis, start_func, INITIAL_TIME, INITIAL_TIME + T_WORD)
-    encode_information(time_axis, amp_axis, INITIAL_TIME + T_WORD, information)
+    insert_bits_as_sound(time_axis, amp_axis, INITIAL_TIME + T_WORD, information)
 

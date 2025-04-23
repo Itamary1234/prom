@@ -18,11 +18,11 @@ def test_func(t):
 # freq0 = 1031
 # freq1 = 1231
 
-freq0 = 2000
-freq1 = 2250
+freq0 = 900 * np.pi
+freq1 = 700 * np.pi
 
 
-AMP = 2000
+AMP = 1000
 def func0(t):
     return AMP * np.sin(t*freq0)
 def func1(t):
@@ -48,15 +48,15 @@ ENCODING_FILE = 'test_recordings/song_2_shakira.wav'
 DECODING_FILE = 'test_recordings/shakira_out.wav'
 
 
-freq0_0 = 2000
-freq0_1 = 2300
-freq0_2 = 2600
-freq0_3 = 2900
+freq0_0 = 1000 * np.pi
+freq0_1 = 900 * np.pi
+freq0_2 = 800 * np.pi
+freq0_3 = 700 * np.pi
 
-freq1_0 = 4100
-freq1_1 = 4400
-freq1_2 = 4900
-freq1_3 = 5200
+freq1_0 = 600 * np.pi
+freq1_1 = 500 * np.pi
+freq1_2 = 400 * np.pi
+freq1_3 = 300 * np.pi
 
 
 
@@ -95,10 +95,49 @@ def func1_3_cos(t):
     return AMP * np.cos(t*freq1_3)
 
 
-MINI_BIT_FUNCTION_ARRAY = [[(func0_0_sin,func0_0_cos),(func1_0_sin,func1_0_cos)],
+# MINI_BIT_FUNCTION_ARRAY = [[(func0_0_sin,func0_0_cos),(func1_0_sin,func1_0_cos)],
+#                            [(func0_1_sin,func0_1_cos),(func1_1_sin,func1_1_cos)],
+#                            [(func0_2_sin, func0_2_cos), (func1_2_sin, func1_2_cos)],
+#                            [(func0_3_sin, func0_3_cos), (func1_3_sin, func1_3_cos)],]
+
+
+MINI_BIT_FUNCTION_ARRAY = [[(func0_0_sin,func0_0_cos),(func0_1_sin,func0_1_cos)],
                            [(func0_1_sin,func0_1_cos),(func1_1_sin,func1_1_cos)],
-                           [(func0_2_sin, func0_2_cos), (func1_2_sin, func1_2_cos)],
-                           [(func0_3_sin, func0_3_cos), (func1_3_sin, func1_3_cos)],]
+                           [(func1_2_sin, func1_2_cos), (func0_3_sin, func0_3_cos)],
+                           [(func0_2_sin, func0_2_cos), (func1_3_sin, func1_3_cos)],
+                           [(func0_3_sin, func0_3_cos), (func0_1_sin, func0_1_cos)],
+                           [(func1_3_sin, func1_3_cos), (func1_1_sin, func1_1_cos)],
+                           [(func0_1_sin, func0_1_cos), (func1_2_sin, func1_2_cos)],
+                           [(func1_1_sin, func1_1_cos), (func0_3_sin, func0_3_cos)],
+                           [(func1_2_sin, func1_2_cos), (func0_1_sin, func0_1_cos)],
+                           [(func1_3_sin, func1_3_cos), (func0_3_sin, func0_3_cos)],
+                           ]#this is 10 crazy matches
+
+
+MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+
+MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)]
+                           ]#this is same func 8 times in one bit
+
+MINI_BIT_FUNCTION_ARRAY = [[(func0, func0_cos), (func1,func1_cos)],
+                           [(func1, func1_cos), (func0,func0_cos)],
+                           [(func0, func0_cos), (func1, func1_cos)],
+                           [(func1, func1_cos), (func0, func0_cos)],
+                           [(func0, func0_cos), (func1, func1_cos)],
+                           [(func1, func1_cos), (func0, func0_cos)],
+                           [(func0, func0_cos), (func1, func1_cos)],
+                           [(func1, func1_cos), (func0, func0_cos)]
+                           ]#opposite bits so ignore noise 8 times
+
+MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)]]
 
 
 

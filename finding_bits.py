@@ -64,7 +64,7 @@ def numpy_find_bits(message_length: int, t_bit: float, time_axis: np.ndarray, am
     # Calculate the constants
     time_interval = time_axis[1] - time_axis[0]  # Time between each measurement
     bit_array_length = int(t_bit / time_interval)  # Number of indexes for each bit
-    db = int((t_bit * CUT_PERCENT)/ time_interval)
+    db = int((bit_array_length * CUT_PERCENT)/ time_interval)
 
     bits = []
 

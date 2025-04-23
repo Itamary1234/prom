@@ -125,3 +125,6 @@ def decode_bits(bits):
 
     # Convert decoded bits back to string
     return bits_to_string(decoded_bits)
+
+
+
