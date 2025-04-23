@@ -109,19 +109,19 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
         mini_bit = [] # mini bit array, representing a bit
         certainty_array = [] # Certainty values array
 
-        if BIT_LENGTH == 1:
-            possible_bits = MINI_BIT_FUNCTION_ARRAY[0]
-            area_zero = (numpy_calc_integral_average(time_axis, amp_axis, possible_bits[0][0], start_ind,
-                                             end_ind) ** 2) + (
-                                numpy_calc_integral(time_axis, amp_axis, possible_bits[0][1], start_ind,
-                                                    end_ind) ** 2)
-
-            area_one = (numpy_calc_integral_average(time_axis, amp_axis, possible_bits[1][0], start_ind,
-                                            end_ind) ** 2) + (
-                               numpy_calc_integral(time_axis, amp_axis, possible_bits[1][1], start_ind,
-                                                   end_ind) ** 2)
-            for i in range(BIT_LENGTH):
-
+        # if BIT_LENGTH == 1:
+        #     possible_bits = MINI_BIT_FUNCTION_ARRAY[0]
+        #     area_zero = (numpy_calc_integral_average(time_axis, amp_axis, possible_bits[0][0], start_ind,
+        #                                      end_ind) ** 2) + (
+        #                         numpy_calc_integral(time_axis, amp_axis, possible_bits[0][1], start_ind,
+        #                                             end_ind) ** 2)
+        #
+        #     area_one = (numpy_calc_integral_average(time_axis, amp_axis, possible_bits[1][0], start_ind,
+        #                                     end_ind) ** 2) + (
+        #                        numpy_calc_integral(time_axis, amp_axis, possible_bits[1][1], start_ind,
+        #                                            end_ind) ** 2)
+        #     for i in range(BIT_LENGTH):
+        #
 
 
         for k in range(BIT_LENGTH):
