@@ -4,10 +4,9 @@ from CONSTANTS import *
 
 
 def record():
-    recording_duration = 55  # seconds
 
     print("Recording...")
-    audio = sd.rec(int(recording_duration * RATE), samplerate=RATE, channels=1, dtype='int16')
+    audio = sd.rec(int(RECORDING_TIME * RATE), samplerate=RATE, channels=1, dtype='int16')
     sd.wait()  # Wait until recording is finished
     print("Recording finished.")
 
