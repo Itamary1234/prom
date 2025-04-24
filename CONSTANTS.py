@@ -8,8 +8,8 @@ T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5
 PARITY_BIT = 1
 CUT_PERCENT = 0.1
+DIVISOR = 1
 RECORDING_TIME = MESSAGE_LENGTH * T_BIT +INITIAL_TIME +3
-
 
 def start_func(t):
     return 2310 * np.sin(t * 800 * np.pi)
@@ -46,7 +46,7 @@ FUNCTION_ARRAY = [(func0,func0_cos),(func1,func1_cos)]
 errors_dictionary = {}
 
 ENCODING_FILE = 'test_recordings/song_2_shakira.wav'
-DECODING_FILE = 'test_recordings/shakira_out_half_bit_0_4.wav'
+DECODING_FILE = 'test_recordings/shakira_out.wav'
 
 
 freq0_0 = 1000 * np.pi
@@ -116,30 +116,19 @@ def func1_3_cos(t):
 
 
 MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit (half_bit)
+                           [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
 
-# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-#                            [(func1,func1_cos),(func0,func0_cos)]]#this is same func only twice in one bit (oppo_half_bit)
 #
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)]
-#                            ]#this is same func 5 times in one bit (5_bit)
-
+#                            [(func1,func1_cos),(func0,func0_cos)]]#this is same func only twice in one bit
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)]
-#                            ]#this is same func 10 times in one bit (10_bit)
-#
+
+                           # ]#this is same func 10 times in one bit
+
 # MINI_BIT_FUNCTION_ARRAY = [[(func0, func0_cos), (func1,func1_cos)],
 #                            [(func1, func1_cos), (func0,func0_cos)],
 #                            [(func0, func0_cos), (func1, func1_cos)],
@@ -150,9 +139,9 @@ MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
 #                            [(func1, func1_cos), (func0, func0_cos)],
 #                            [(func0, func0_cos), (func1, func1_cos)],
 #                            [(func1, func1_cos), (func0, func0_cos)]
-#                            ]#opposite bits so ignore noise 10 times (oppo_10_bit)
-#
-MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)]]#2_og
+#                            ]#opposite bits so ignore noise 8 times
+
+# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)]]
 
 
 
