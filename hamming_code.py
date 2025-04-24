@@ -1,5 +1,5 @@
 from CONSTANTS import *
-
+import reedsolo
 
 def hamming_7_4_encode(data_bits):
     '''
@@ -45,14 +45,14 @@ def hamming_7_4_decode(encoded_bits):
 
 
 
-def string_to_bits(input_string):
+def string_to_bits(input_string, round_to = 4):
     bits=[]
     for char in input_string:
         curr_bits = CHAR_TO_BINARY[char]
         for b in curr_bits:
             bits.append(b)
 
-    while not len(bits) % 4 ==0:
+    while not len(bits) % round_to ==0:
         bits.append(0)
     return bits
 
@@ -128,3 +128,60 @@ def decode_bits(bits):
 
 
 
+
+def bits_to_bytes(bits):
+    return bytearray(int(''.join(map(str, bits[i:i+8])), 2) for i in range(0, len(bits), 8))
+
+def bytes_to_bits(b):
+    return [int(bit) for byte in b for bit in format(byte, '08b')]
+
+
+def reedsolo_encode_string(input_string):
+    rs = reedsolo.RSCodec(30)
+    encoded = rs.encode(input_string.encode('utf-8'))
+    return encoded
+
+
+def reedsolo_decode_bits(input_bytes):
+    rs = reedsolo.RSCodec(30)
+    return (rs.decode(input_bytes)[0]).decode('utf-8')
+
+
+def bit_list_to_ascii_string(bits):
+    if len(bits) % 8 != 0:
+        raise ValueError("Bit list length must be a multiple of 8")
+
+    chars = []
+    for i in range(0, len(bits), 8):
+        byte = bits[i:i+8]
+        byte_str = ''.join(str(b) for b in byte)
+        ascii_char = chr(int(byte_str, 2))
+        chars.append(ascii_char)
+
+    return ''.join(chars)
+def ascii_string_to_bit_list(s):
+    bits = []
+    for char in s:
+        binary_str = format(ord(char), '08b')  # Convert char to 8-bit binary string
+        bits.extend(int(bit) for bit in binary_str)
+    return bits
+
+def reed_str_to_bits(input_string):
+    bits = string_to_bits(input_string, round_to=8)
+    str = bit_list_to_ascii_string(bits)
+    encoded = reedsolo_encode_string(str)
+    return bytes_to_bits(encoded)
+
+def reed_bits_to_str(input_bits):
+    input_bytes = bits_to_bytes(input_bits)
+    decoded = reedsolo_decode_bits(input_bytes)
+    decoded_bits = ascii_string_to_bit_list(decoded)
+    return bits_to_string(decoded_bits)
+
+
+if __name__ == '__main__':
+    text = "this is my secret text"
+    bits = reed_str_to_bits(text)
+    print(bits)
+    str = reed_bits_to_str(bits)
+    print(str)
