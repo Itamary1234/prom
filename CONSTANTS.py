@@ -23,7 +23,7 @@ freq0 = 900 * np.pi
 freq1 = 700 * np.pi
 
 
-AMP = 1000
+AMP = 1
 def func0(t):
     return AMP * np.sin(t*freq0)
 def func1(t):
@@ -115,17 +115,19 @@ def func1_3_cos(t):
 #                            ]#this is 10 crazy matches
 
 
+# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+
+#
 MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
 
-#
-# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-#                            [(func1,func1_cos),(func0,func0_cos)]]#this is same func only twice in one bit
+
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)]]
 
                            # ]#this is same func 10 times in one bit
 

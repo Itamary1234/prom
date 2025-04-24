@@ -143,12 +143,15 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
             if area_zero < area_one:
                 mini_bit.append(1)
                 # Checking how sure I am that the bit is actually the bit
-                certainty = 1 - (area_zero / area_one)
+
+                certainty = (1 - (area_zero / area_one))
             else:
                 mini_bit.append(-1)
-                certainty = 1 - (area_one / area_zero)
+                certainty = (1 - (area_one / area_zero))
+
             # Keeping track of how sure I am in each bit
             certainty_array.append(certainty)
+
 
         # Calculating bit_value by multiplying the two arrays.
         mini_bit_numpy = np.array(mini_bit)
