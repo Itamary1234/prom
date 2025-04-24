@@ -3,14 +3,13 @@ from scipy.io.wavfile import write
 from CONSTANTS import *
 
 
-def record():
-    recording_duration = 55  # seconds
+def record(file_name = "test_recordings/recording_from_python1.wav"):
 
     print("Recording...")
-    audio = sd.rec(int(recording_duration * RATE), samplerate=RATE, channels=1, dtype='int16')
+    audio = sd.rec(int(RECORDING_TIME * RATE), samplerate=RATE, channels=1, dtype='int16')
     sd.wait()  # Wait until recording is finished
     print("Recording finished.")
 
     # Save to WAV
-    write("test_recordings/recording_from_python1.wav", RATE, audio)
+    write(file_name, RATE, audio)
 

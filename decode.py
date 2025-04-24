@@ -47,11 +47,11 @@ def decode(file_path_in : str) -> list:
 
 
 if __name__ == '__main__':
-    # print("starting")
-    # record()
-    # print("finished recording")
-    # print("starting decode")
-    bits = decode("test_recordings/recording_from_python1.wav")
+    print("starting")
+    record("test_recordings/recording_from_python_half_bit_0_4.wav")
+    print("finished recording")
+    print("starting decode")
+    bits = decode("test_recordings/recording_from_python_half_bit_0_4.wav")
     print("decode finished")
 
 
