@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
 
     # Getting sentence to send
-    sentence = "this is my secret text i am writing to you this message" #input('Enter Sentence To Send: ')
+    sentence = "this is my secret text" #input('Enter Sentence To Send: ')
     information = encode_string(sentence)
     encode(ENCODING_FILE, DECODING_FILE, information)
     print('number of bit = ' + str(len(information)))
