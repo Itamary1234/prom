@@ -3,7 +3,7 @@ RATE = 48000
 message_array = [0,1,0,1,0,1] * 30
 
 MESSAGE_LENGTH = 196
-T_BIT = 0.4 # Time for each bit
+T_BIT = 0.2 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5
 PARITY_BIT = 1
@@ -46,7 +46,7 @@ FUNCTION_ARRAY = [(func0,func0_cos),(func1,func1_cos)]
 errors_dictionary = {}
 
 ENCODING_FILE = 'test_recordings/song_2_shakira.wav'
-DECODING_FILE = 'test_recordings/shakira_out.wav'
+DECODING_FILE = 'test_recordings/shakira_out_quarter_bit_0_2.wav'
 
 
 freq0_0 = 1000 * np.pi
@@ -115,8 +115,14 @@ def func1_3_cos(t):
 #                            ]#this is 10 crazy matches
 
 
+# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+
 MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0, func0_cos), (func1, func1_cos)],
+                           [(func0, func0_cos), (func1, func1_cos)]
+                           ]#this is same func only twice in one bit
 
 #
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
