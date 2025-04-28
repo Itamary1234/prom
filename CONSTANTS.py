@@ -11,8 +11,11 @@ CUT_PERCENT = 0.1
 DIVISOR = 1
 RECORDING_TIME = MESSAGE_LENGTH * T_BIT +INITIAL_TIME +3
 
+AMP = 1000
+
+
 def start_func(t):
-    return 2310 * np.sin(t * 800 * np.pi)
+    return 2300 * np.sin(t * 800 * np.pi)
 def test_func(t):
     return 30000 * np.sin(t * 2000 * np.pi)
 
@@ -23,7 +26,6 @@ freq0 = 900 * np.pi
 freq1 = 700 * np.pi
 
 
-AMP = 1000
 def func0(t):
     return AMP * np.sin(t*freq0)
 def func1(t):
@@ -46,7 +48,7 @@ FUNCTION_ARRAY = [(func0,func0_cos),(func1,func1_cos)]
 errors_dictionary = {}
 
 ENCODING_FILE = 'test_recordings/song_2_shakira.wav'
-DECODING_FILE = 'test_recordings/shakira_out_quarter_bit_0_2.wav'
+DECODING_FILE = 'test_recordings/shakira_out.wav'
 
 
 freq0_0 = 1000 * np.pi
@@ -115,14 +117,14 @@ def func1_3_cos(t):
 #                            ]#this is 10 crazy matches
 
 
-# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
-
 MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)],
-                           [(func0, func0_cos), (func1, func1_cos)],
-                           [(func0, func0_cos), (func1, func1_cos)]
-                           ]#this is same func only twice in one bit
+                           [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+
+# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0, func0_cos), (func1, func1_cos)],
+#                            [(func0, func0_cos), (func1, func1_cos)]
+#                            ]#this is same func only twice in one bit
 
 #
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
@@ -165,39 +167,23 @@ T_MINI_BIT = T_BIT/BIT_LENGTH
 
 
 CHAR_TO_BINARY = {
-    '~': [0,0,0,0,0],
-    'a': [0,0,0,0,1],
-    'b': [0,0,0,1,0],
-    'c': [0,0,0,1,1],
-    'd': [0,0,1,0,0],
-    'e': [0,0,1,0,1],
-    'f': [0,0,1,1,0],
-    'g': [0,0,1,1,1],
-    'h': [0,1,0,0,0],
-    'i': [0,1,0,0,1],
-    'j': [0,1,0,1,0],
-    'k': [0,1,0,1,1],
-    'l': [0,1,1,0,0],
-    'm': [0,1,1,0,1],
-    'n': [0,1,1,1,0],
-    'o': [0,1,1,1,1],
-    'p': [1,0,0,0,0],
-    'q': [1,0,0,0,1],
-    'r': [1,0,0,1,0],
-    's': [1,0,0,1,1],
-    't': [1,0,1,0,0],
-    'u': [1,0,1,0,1],
-    'v': [1,0,1,1,0],
-    'w': [1,0,1,1,1],
-    'x': [1,1,0,0,0],
-    'y': [1,1,0,0,1],
-    'z': [1,1,0,1,0],
-    ' ': [1,1,0,1,1],
-    '.': [1,1,1,0,0],
-    '?': [1,1,1,0,1],
-    '!': [1,1,1,1,0],
-    '-': [1,1,1,1,1],
-}
+    'e': [0,0,0,0],
+    'a': [0,0,0,1],
+    'r': [0,0,1,0],
+    'i': [0,0,1,1],
+    'o': [0,1,0,0],
+    't': [0,1,0,1],
+    'n': [0,1,1,0],
+    's': [0,1,1,1],
+    'l': [1,0,0,0],
+    'c': [1,0,0,1],
+    'u': [1,0,1,0],
+    'd': [1,0,1,1],
+    'p': [1,1,0,0],
+    'm': [1,1,0,1],
+    'h': [1,1,1,0],
+    ' ': [1,1,1,1],
+}#eariotnslcudpmh
 
 BINARY_TO_CHAR = {tuple(v): k for k, v in CHAR_TO_BINARY.items()}
 
