@@ -6,7 +6,7 @@ MESSAGE_ARRAY = [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 
                  1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1,
                  0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0]
 
-MINI_MESSAGE_ARRAY = []
+MINI_MESSAGE_ARRAY = [bit for bit in MESSAGE_ARRAY for _ in range(2)]
 
 
 MESSAGE_LENGTH = 154

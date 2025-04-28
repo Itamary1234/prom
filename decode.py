@@ -44,9 +44,10 @@ def decode(file_path_in : str):
     # Finding bits using find bits functions
     bits_array, errors_analyzing= numpy_find_bits(message_time, message_amp)
 
-    # FFT shit
+
     fft_bits = fft_decode(file_path_in, time_axis[message_start])
     print(fft_bits)
+    #(bits,(mini_bits, certainty)), (fft_bits, (fft_mini_bits, fft_certainty))
     return (bits_array, errors_analyzing), fft_bits
 
 def check_errors(errors : tuple):
