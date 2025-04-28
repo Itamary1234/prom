@@ -1,49 +1,84 @@
+import random
+
 import numpy as np
-from matplotlib import pyplot as plt
 from scipy.io import wavfile
+import matplotlib.pyplot as plt
+from CONSTANTS import *
 
-from insert_bits import plot
+def cut_and_fft(wav_path, target_second, window_size=1.0):
+    """
+    Cuts a segment from a WAV file at a specific time and computes its FFT.
 
+    Parameters:
+    wav_path (str): Path to the WAV file.
+    target_second (float): The second from which to start cutting.
+    window_size (float): Duration in seconds of the segment to cut (default 1 second).
 
-def filter_wav_by_frequency(input_path, output_path, freq_low, freq_high):
+    Returns:
+    freqs (numpy array): Array of frequencies.
+    fft_magnitude (numpy array): Magnitude of the FFT.
+    """
     # Read WAV file
-    rate, data = wavfile.read(input_path)
-    print(f"Sample rate: {rate} Hz")
+    sample_rate, data = wavfile.read(wav_path)
 
-    # If stereo, take only one channel
-    if len(data.shape) == 2:
-        data = data[:, 0]
+    # Calculate start and end sample indices
+    start_sample = int(target_second * sample_rate)
+    end_sample = int((target_second + window_size) * sample_rate)
 
-    # FFT
-    fft_data = np.fft.fft(data)
-    freqs = np.fft.fftfreq(len(fft_data), d=1 / rate)
+    # Cut the segment
+    segment = data[start_sample:end_sample]
 
-    # Create a mask for the desired frequency band
-    band_mask = (np.abs(freqs) <= freq_high)
+    # Apply FFT
+    fft_result = np.fft.fft(segment)
+    fft_magnitude = np.abs(fft_result)
+    freqs = np.fft.fftfreq(len(segment), d=1/sample_rate)
 
-    # Apply the mask
-    filtered_fft = fft_data * band_mask
+    # Return only the positive frequencies
+    pos_mask = freqs >= 0
+    return freqs[pos_mask], fft_magnitude[pos_mask]
 
-    # Inverse FFT to get time-domain signal
-    filtered_data = np.fft.ifft(filtered_fft).real
 
-    # Convert to original dtype
-    # filtered_data = np.int16(filtered_data / np.max(np.abs(filtered_data)) * 32767)
 
-    plt.figure(figsize=(10, 4))
-    plt.plot(filtered_data)
-    plt.title("Filtered Audio Waveform")
-    plt.xlabel("Sample Index")
-    plt.ylabel("Amplitude")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+def get_average_magnitude(freqs, magnitude, target_freq, bin_range=1):
+    idx = np.argmin(np.abs(freqs - target_freq))
+    start = max(idx - bin_range, 0)
+    end = min(idx + bin_range + 1, len(magnitude))
+    return np.mean(magnitude[start:end])
 
-    # Save the filtered WAV file
-    wavfile.write(output_path, rate, filtered_data)
 
-# Example usage:
-# filter_wav_by_frequency("input.wav", "output_filtered.wav", 1000, 2000)
 
-filter_wav_by_frequency("test_recordings/recording_from_python_half_bit_0_4.wav",
-                        "test_recordings/recording_from_python_half_bit_0_4_FFT.wav", 0, 1000)
+
+def fft_decode(wav_path : str, message_start : float):
+    ''' This function will decode using fft, message start will be given in seconds '''
+
+    bit_array = []
+    mini_bits_array = []
+    certainty_array = []
+    for i in range(MESSAGE_LENGTH):
+        bit = 0
+        for j in range(BIT_LENGTH):
+            start_time = message_start + i * T_BIT + j * T_MINI_BIT
+            freqs, magnitude = cut_and_fft(wav_path, start_time, T_MINI_BIT)
+
+            # Getting magnitude of FFT from data
+            freq_0_mag = get_average_magnitude(freqs, magnitude, freq0)
+            freq_1_mag = get_average_magnitude(freqs, magnitude, freq1)
+            # Checking which bit is more likely to be sent
+            if freq_1_mag > freq_0_mag:
+                bit += 1
+                certainty = freq_1_mag / freq_0_mag
+            else:
+                certainty = freq_0_mag / freq_1_mag
+                bit -= 1
+
+            certainty_array.append(certainty)
+
+        # Appending to bits according to the sum.
+        if bit > 0:
+            bit_array.append(1)
+        elif bit < 0:
+            bit_array.append(0)
+        else:
+            bit_array.append(random.randint(0, 1))
+
+    return bit_array, (mini_bits_array, certainty_array)

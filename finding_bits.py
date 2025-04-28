@@ -84,7 +84,7 @@ def parity_bits(bits_array : list) :
         most_common_element, count = counter.most_common(1)[0]
         return most_common_element
 
-def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
+def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> (list, tuple):
     """
     :param T_BIT: Time for each bit
     :param time_axis: The time axis of the wave
@@ -103,6 +103,8 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
     db = int((T_BIT * CUT_PERCENT)/ (time_interval * BIT_LENGTH))
 
     bits = []
+    mini_bits_array = [] # All mini_bits found
+    mini_certainty_array = [] # All certainties found
 
     for i in range(MESSAGE_LENGTH):
         start_ind = i * bit_array_length
@@ -152,8 +154,13 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
             # Keeping track of how sure I am in each bit
             certainty_array.append(certainty)
 
+        # Appending to big arrays for error analyzing
+
+        mini_bits_array += mini_bit
+        mini_certainty_array += certainty_array
 
         # Calculating bit_value by multiplying the two arrays.
+
         mini_bit_numpy = np.array(mini_bit)
         certainty_array_numpy = np.array(certainty_array)
         bit_value = np.sum(mini_bit_numpy * certainty_array_numpy)
@@ -165,5 +172,5 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
 
 
 
-    return bits
+    return bits, (mini_bits_array, mini_certainty_array)
 
