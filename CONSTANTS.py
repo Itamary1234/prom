@@ -2,8 +2,8 @@ import numpy as np
 RATE = 48000
 message_array = [0,1,0,1,0,1] * 30
 
-MESSAGE_LENGTH = 196
-T_BIT = 0.2 # Time for each bit
+MESSAGE_LENGTH = 420
+T_BIT = 0.3 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5
 PARITY_BIT = 1
@@ -22,7 +22,7 @@ def test_func(t):
 # freq0 = 1031
 # freq1 = 1231
 
-freq0 = 900 * np.pi
+freq0 = 1900 * np.pi
 freq1 = 700 * np.pi
 
 
@@ -117,8 +117,15 @@ def func1_3_cos(t):
 #                            ]#this is 10 crazy matches
 
 
+# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+
+
+
 MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+
 
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],
