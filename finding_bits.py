@@ -84,11 +84,12 @@ def parity_bits(bits_array : list) :
         most_common_element, count = counter.most_common(1)[0]
         return most_common_element
 
-def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> (list, tuple):
+def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray, mini_bit_funcs : list[list[tuple]] = MINI_BIT_FUNCTION_ARRAY1) -> (list, tuple):
     """
     :param T_BIT: Time for each bit
     :param time_axis: The time axis of the wave
     :param amp_axis: The Y axis of the wave representing amplitude
+    :param mini_bit_funcs: The mini_bit function array we want to cross correlate with
     :return: Array of funcs with the highest integral
     """
     # Making an array for correct / correlating funcs
@@ -133,7 +134,7 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> (list, tuple
             # Calculating index for each mini bit
             mini_start_ind = start_ind + mini_bit_array_length * k
             mini_end_ind = start_ind + mini_bit_array_length * (k+1)
-            possible_bits = MINI_BIT_FUNCTION_ARRAY[k] # Array of two tuples representing 0 and 1
+            possible_bits = mini_bit_funcs[k] # Array of two tuples representing 0 and 1
             # Now we need to change func array in next for loop to possible bits
             area_zero = (numpy_calc_integral(time_axis, amp_axis, possible_bits[0][0], mini_start_ind, mini_end_ind) ** 2) + (
                         numpy_calc_integral(time_axis, amp_axis, possible_bits[0][1], mini_start_ind, mini_end_ind) ** 2)
@@ -181,4 +182,34 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> (list, tuple
 
 
     return bits, (mini_bits_array, mini_certainty_array)
+
+def mini_to_bits(channel1 : tuple, channel2 : tuple) -> list:
+    '''
+
+    :param channel1: A tuple consisting of mini_bits found from channel 1 and their certainties
+    :param channel2:
+    :return:
+    '''
+    mini_bit_array1 = np.array(channel1[0])
+    mini_bit_array2 = np.array(channel2[0])
+    certainty_array1 = np.array(channel1[1])
+    certainty_array2 = np.array(channel2[1])
+
+
+    bits = []
+    # Running through each bit
+    for i in range(0, MESSAGE_LENGTH * BIT_LENGTH, BIT_LENGTH):
+        # Mini_bit and certainty array list slicing
+        mini_bit_1 = mini_bit_array1[i: i + BIT_LENGTH]
+        mini_bit_2 = mini_bit_array2[i: i + BIT_LENGTH]
+        cer_1 = certainty_array1[i: i + BIT_LENGTH]
+        cer_2 = certainty_array2[i: i + BIT_LENGTH]
+        # Calculating average value of bit
+        bit_value = np.sum((2*mini_bit_1-1) * cer_1) + np.sum((2*mini_bit_2-1) * cer_2)
+        if bit_value < 0:
+            bits.append(0)
+        else:
+            bits.append(1)
+
+    return bits
 

@@ -131,7 +131,7 @@ def func1_3_cos(t):
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
 
-MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+MINI_BIT_FUNCTION_ARRAY1 = [[(func0,func0_cos),(func1,func1_cos)],
                            [(func0,func0_cos),(func1,func1_cos)],
                            [(func0,func0_cos),(func1,func1_cos)]]
 
@@ -169,7 +169,7 @@ MINI_BIT_FUNCTION_ARRAY2 = [[(func0,func0_cos),(func1,func1_cos)],
 
 
 
-BIT_LENGTH = len(MINI_BIT_FUNCTION_ARRAY)
+BIT_LENGTH = len(MINI_BIT_FUNCTION_ARRAY1)
 T_MINI_BIT = T_BIT/BIT_LENGTH
 
 
