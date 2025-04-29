@@ -62,8 +62,6 @@ def string_to_bits(input_string, round_to = 4):
 def bits_to_string(bits, chunk_size = 4):
     string = ""
     for i in range(0, len(bits), chunk_size):
-        if i+chunk_size >= len(bits):
-            break
         chunk = bits[i:i + chunk_size]
         try:
             string += BINARY_TO_CHAR[tuple(chunk)]

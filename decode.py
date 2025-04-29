@@ -46,7 +46,7 @@ def decode(file_path_in : str):
 
 
     fft_bits = fft_decode(file_path_in, time_axis[message_start])
-    print(fft_bits)
+
     #(bits,(mini_bits, certainty)), (fft_bits, (fft_mini_bits, fft_certainty))
     return (bits_array, errors_analyzing), fft_bits
 
@@ -60,7 +60,7 @@ def check_errors(errors : tuple):
 
     mini_bits_array = errors[0]
     certainty_array = errors[1]
-
+    errors_total = 0
     # Prepare certainty ranges (0-0.05, 0.05-0.1, ..., 0.95-1.0)
     ranges = [(i/20, (i+1)/20) for i in range(20)]  # [(0, 0.05), (0.05, 0.1), ..., (0.95, 1.0)]
 
@@ -86,31 +86,38 @@ def check_errors(errors : tuple):
     for r in ranges:
         total = total_in_range[r]
         errors = errors_in_range[r]
+        errors_total += errors
         if total > 0:
             error_percentages[f"{r[0]:.2f}-{r[1]:.2f}"] = errors / total
         else:
             error_percentages[f"{r[0]:.2f}-{r[1]:.2f}"] = None  # No data in this range
 
-    total_errors_per = sum(mini_bits_array[i] != MINI_MESSAGE_ARRAY[i] for i in range(len(mini_bits_array))) / len(MINI_MESSAGE_ARRAY)
 
     # Saving data into an excel
     df = pd.DataFrame(list(error_percentages.items()), columns=["Certainty Range", "Error Percentage"])
 
     # Save it to an Excel file
-    df.to_excel("error_percentages.xlsx", index=False)
+    #df.to_excel("excels/cc_T_03_L_420_A_1300.xlsx", index=False)
+
+    total_errors_per = errors_total / (BIT_LENGTH * MESSAGE_LENGTH)
+    print('Error Percentage is: ' + str(total_errors_per))
+
+    return error_percentages
 
 
-    return error_percentages, total_errors_per
-
-
-
+def bit_errors(bits_array : list):
+    errors = 0
+    for i in range(MESSAGE_LENGTH):
+        if bits_array[i] != MESSAGE_ARRAY[i]:
+            errors += 1
+    return errors / MESSAGE_LENGTH
 
 
 
 if __name__ == '__main__':
-    file_name="test_recordings/recording_from_python_half_bit_0_2.wav"
+    file_name="test_recordings/T_03_freq_1900_700_L_420_Test.wav"
     print("starting")
-    # record(file_name)
+    #record(file_name)
     print("finished recording")
     print("starting decode")
     bits, fft_bits = decode(file_name)
@@ -118,11 +125,15 @@ if __name__ == '__main__':
     print("decode finished")
 
     print()
-    print('bits = '+str(bits))
+    print('bits = ' + str(bits[0]))
     sentence = decode_bits(bits[0])
-    print('Sentence Decoded: ' + sentence)
 
-    # Checking errors
-    print(check_errors(bits[1]))
-    print(check_errors(fft_bits[1]))
+    print('Bit Errors = ' + str(bit_errors(bits[0])))
+
+    print('Sentence Decoded With Cross-Correlation: ' + sentence)
+    print('Bits_Decoded With FFT: ' + str(fft_bits[0]))
+
+    #Checking errors
+    check_errors(bits[1])
+
 

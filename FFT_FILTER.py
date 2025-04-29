@@ -39,7 +39,7 @@ def cut_and_fft(wav_path, target_second, window_size=1.0):
 
 
 
-def get_average_magnitude(freqs, magnitude, target_freq, bin_range=1):
+def get_average_magnitude(freqs, magnitude, target_freq, bin_range=5):
     idx = np.argmin(np.abs(freqs - target_freq))
     start = max(idx - bin_range, 0)
     end = min(idx + bin_range + 1, len(magnitude))
@@ -65,10 +65,12 @@ def fft_decode(wav_path : str, message_start : float):
             freq_1_mag = get_average_magnitude(freqs, magnitude, freq1)
             # Checking which bit is more likely to be sent
             if freq_1_mag > freq_0_mag:
+                mini_bits_array.append(1)
                 bit += 1
-                certainty = freq_1_mag / freq_0_mag
+                certainty = 1 - (freq_0_mag / freq_1_mag)
             else:
-                certainty = freq_0_mag / freq_1_mag
+                mini_bits_array.append(0)
+                certainty = 1 - (freq_1_mag / freq_0_mag)
                 bit -= 1
 
             certainty_array.append(certainty)

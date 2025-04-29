@@ -1,20 +1,24 @@
 import numpy as np
 RATE = 48000
-MESSAGE_ARRAY = [0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0,
-                 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1,
-                 1, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1,
-                 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1,
-                 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0]
+MESSAGE_ARRAY = [1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1,
+                        1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1,
+                        1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1,
+                        0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0,
+                        1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0,
+                        1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+                        0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1,
+                        1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1,
+                        1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1,
+                        1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1]
 
-MINI_MESSAGE_ARRAY = [bit for bit in MESSAGE_ARRAY for _ in range(2)]
 
 
-MESSAGE_LENGTH = 154
-T_BIT = 0.2 # Time for each bit
+MESSAGE_LENGTH = 420
+T_BIT = 0.3 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5
 PARITY_BIT = 1
-CUT_PERCENT = 0.1
+CUT_PERCENT = 0
 DIVISOR = 1
 RECORDING_TIME = MESSAGE_LENGTH * T_BIT +INITIAL_TIME +3
 
@@ -26,7 +30,7 @@ def test_func(t):
 # freq0 = 1031
 # freq1 = 1231
 
-freq0 = 900 * np.pi
+freq0 = 1900 * np.pi
 freq1 = 700 * np.pi
 
 
@@ -122,8 +126,18 @@ def func1_3_cos(t):
 #                            ]#this is 10 crazy matches
 
 
+# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+
 MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)]]
+
+MINI_BIT_FUNCTION_ARRAY2 = [[(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)]]
+
+
 
 #
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
@@ -187,6 +201,7 @@ CHAR_TO_BINARY = {
 BINARY_TO_CHAR = {tuple(v): k for k, v in CHAR_TO_BINARY.items()}
 
 
+MINI_MESSAGE_ARRAY = [bit for bit in MESSAGE_ARRAY for _ in range(BIT_LENGTH)]
 
 
 
