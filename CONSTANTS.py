@@ -62,15 +62,19 @@ ENCODING_FILE = 'test_recordings/song_2_shakira.wav'
 DECODING_FILE = 'test_recordings/shakira_out.wav'
 
 
-freq0_0 = 1000 * np.pi
+freq0_0 = 1900 * np.pi
 freq0_1 = 900 * np.pi
-freq0_2 = 800 * np.pi
+freq0_2 = 1100 * np.pi
 freq0_3 = 700 * np.pi
+freq0_4 = 1700 * np.pi
+freq0_5 = 600 * np.pi
 
-freq1_0 = 600 * np.pi
-freq1_1 = 500 * np.pi
-freq1_2 = 400 * np.pi
+freq1_0 = 700 * np.pi
+freq1_1 = 2100 * np.pi
+freq1_2 = 1500 * np.pi
 freq1_3 = 300 * np.pi
+freq1_4 = 1000 * np.pi
+freq1_5 = 1400 * np.pi
 
 
 
@@ -82,6 +86,11 @@ def func0_2_sin(t):
     return AMP * np.sin(t*freq0_2)
 def func0_3_sin(t):
     return AMP * np.sin(t*freq0_3)
+def func0_4_sin(t):
+    return AMP * np.sin(t*freq0_4)
+def func0_5_sin(t):
+    return AMP * np.sin(t*freq0_5)
+
 def func1_0_sin(t):
     return AMP * np.sin(t*freq1_0)
 def func1_1_sin(t):
@@ -90,6 +99,10 @@ def func1_2_sin(t):
     return AMP * np.sin(t*freq1_2)
 def func1_3_sin(t):
     return AMP * np.sin(t*freq1_3)
+def func1_4_sin(t):
+    return AMP * np.sin(t*freq1_4)
+def func1_5_sin(t):
+    return AMP * np.sin(t*freq1_5)
 
 def func0_0_cos(t):
     return AMP * np.cos(t*freq0_0)
@@ -99,6 +112,10 @@ def func0_2_cos(t):
     return AMP * np.cos(t*freq0_2)
 def func0_3_cos(t):
     return AMP * np.cos(t*freq0_3)
+def func0_4_cos(t):
+    return AMP * np.cos(t*freq0_4)
+def func0_5_cos(t):
+    return AMP * np.cos(t*freq0_5)
 def func1_0_cos(t):
     return AMP * np.cos(t*freq1_0)
 def func1_1_cos(t):
@@ -107,6 +124,46 @@ def func1_2_cos(t):
     return AMP * np.cos(t*freq1_2)
 def func1_3_cos(t):
     return AMP * np.cos(t*freq1_3)
+def func1_4_cos(t):
+    return AMP * np.cos(t*freq1_4)
+def func1_5_cos(t):
+    return AMP * np.cos(t*freq1_5)
+
+
+
+MINI_BIT_FUNCTION_ARRAY1 = [[(func0_0_sin,func0_0_cos),(func1_0_sin,func1_0_cos)],
+                           [(func0_1_sin,func0_1_cos),(func1_1_sin,func1_1_cos)],
+                           [(func0_2_sin,func0_2_cos),(func1_2_sin,func1_2_cos)]]
+
+MINI_BIT_FUNCTION_ARRAY2 = [[(func0_3_sin,func0_3_cos),(func1_3_sin,func1_3_cos)],
+                           [(func0_4_sin,func0_4_cos),(func1_4_sin,func1_4_cos)],
+                           [(func0_5_sin,func0_5_cos),(func1_5_sin,func1_5_cos)]]
+
+
+
+# MINI_BIT_FUNCTION_ARRAY1 = [[(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)]]
+#
+# MINI_BIT_FUNCTION_ARRAY2 = [[(func0_1_sin,func0_1_cos),(func1_1_sin,func1_1_cos)],
+#                            [(func0_1_sin,func0_1_cos),(func1_1_sin,func1_1_cos)],
+#                            [(func0_1_sin,func0_1_cos),(func1_1_sin,func1_1_cos)]]
+
+
+# MINI_BIT_FUNCTION_ARRAY1 = [[(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)]]
+#
+# MINI_BIT_FUNCTION_ARRAY2 = [[(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)],
+#                            [(func0,func0_cos),(func1,func1_cos)]]
+
+
+
+
+
+
+
 
 
 # MINI_BIT_FUNCTION_ARRAY = [[(func0_0_sin,func0_0_cos),(func1_0_sin,func1_0_cos)],
@@ -130,15 +187,6 @@ def func1_3_cos(t):
 
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
-
-MINI_BIT_FUNCTION_ARRAY1 = [[(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)]]
-
-MINI_BIT_FUNCTION_ARRAY2 = [[(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)]]
-
 
 
 #

@@ -87,8 +87,10 @@ def insert_bits_as_sound(time_axis, amp_axis, initial_time, information):
         # now we insert the mini_bits
         for mini_index in range(BIT_LENGTH):
             #we want the index of the mini bit and then the index of the bit and then the sin func
-            f = MINI_BIT_FUNCTION_ARRAY[mini_index][bit][0]
+            f = MINI_BIT_FUNCTION_ARRAY1[mini_index][bit][0]
+            f2 = MINI_BIT_FUNCTION_ARRAY2[mini_index][bit][0]
             insert_func_into_data_section_by_time(time_axis, amp_axis, f, current_time, current_time + T_MINI_BIT)
+            insert_func_into_data_section_by_time(time_axis, amp_axis, f2, current_time, current_time + T_MINI_BIT)
             current_time = current_time + T_MINI_BIT
 
 
