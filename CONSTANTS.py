@@ -1,13 +1,24 @@
 import numpy as np
 RATE = 48000
-message_array = [0,1,0,1,0,1] * 30
+MESSAGE_ARRAY = [1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1,
+                        1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1,
+                        1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1,
+                        0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0,
+                        1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0,
+                        1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+                        0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1,
+                        1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1,
+                        1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1,
+                        1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1]
+
+
 
 MESSAGE_LENGTH = 420
 T_BIT = 0.3 # Time for each bit
 T_WORD = 1 # Time for opening word
 INITIAL_TIME = 5
 PARITY_BIT = 1
-CUT_PERCENT = 0.1
+CUT_PERCENT = 0
 DIVISOR = 1
 RECORDING_TIME = MESSAGE_LENGTH * T_BIT +INITIAL_TIME +3
 
@@ -15,7 +26,7 @@ AMP = 1000
 
 
 def start_func(t):
-    return 2300 * np.sin(t * 800 * np.pi)
+    return 2010 * np.sin(t * 800 * np.pi)
 def test_func(t):
     return 30000 * np.sin(t * 2000 * np.pi)
 
@@ -120,18 +131,15 @@ def func1_3_cos(t):
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
 
-
-
 MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
                            [(func0,func0_cos),(func1,func1_cos)],
-                           [(func0,func0_cos),(func1,func1_cos)]]#this is same func only twice in one bit
+                           [(func0,func0_cos),(func1,func1_cos)]]
+
+MINI_BIT_FUNCTION_ARRAY2 = [[(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)],
+                           [(func0,func0_cos),(func1,func1_cos)]]
 
 
-# MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0,func0_cos),(func1,func1_cos)],
-#                            [(func0, func0_cos), (func1, func1_cos)],
-#                            [(func0, func0_cos), (func1, func1_cos)]
-#                            ]#this is same func only twice in one bit
 
 #
 # MINI_BIT_FUNCTION_ARRAY = [[(func0,func0_cos),(func1,func1_cos)],
@@ -195,6 +203,7 @@ CHAR_TO_BINARY = {
 BINARY_TO_CHAR = {tuple(v): k for k, v in CHAR_TO_BINARY.items()}
 
 
+MINI_MESSAGE_ARRAY = [bit for bit in MESSAGE_ARRAY for _ in range(BIT_LENGTH)]
 
 
 

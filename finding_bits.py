@@ -84,12 +84,11 @@ def parity_bits(bits_array : list) :
         most_common_element, count = counter.most_common(1)[0]
         return most_common_element
 
-def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
+def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> (list, tuple):
     """
     :param T_BIT: Time for each bit
     :param time_axis: The time axis of the wave
     :param amp_axis: The Y axis of the wave representing amplitude
-    :param MESSAGE_LENGTH: Number of bits
     :return: Array of funcs with the highest integral
     """
     # Making an array for correct / correlating funcs
@@ -103,10 +102,12 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
     db = int((T_BIT * CUT_PERCENT)/ (time_interval * BIT_LENGTH))
 
     bits = []
+    mini_bits_array = [] # All mini_bits found
+    mini_certainty_array = [] # All certainties found
 
     for i in range(MESSAGE_LENGTH):
-        start_ind = i * bit_array_length
-        end_ind = (i + 1) * bit_array_length
+        start_ind = i * bit_array_length + db
+        end_ind = (i + 1) * bit_array_length - db
 
 
         # DSSS Experiments
@@ -130,8 +131,8 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
 
         for k in range(BIT_LENGTH):
             # Calculating index for each mini bit
-            mini_start_ind = start_ind + mini_bit_array_length * k + db
-            mini_end_ind = start_ind + mini_bit_array_length * (k+1) - db
+            mini_start_ind = start_ind + mini_bit_array_length * k
+            mini_end_ind = start_ind + mini_bit_array_length * (k+1)
             possible_bits = MINI_BIT_FUNCTION_ARRAY[k] # Array of two tuples representing 0 and 1
             # Now we need to change func array in next for loop to possible bits
             area_zero = (numpy_calc_integral(time_axis, amp_axis, possible_bits[0][0], mini_start_ind, mini_end_ind) ** 2) + (
@@ -143,17 +144,34 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
             if area_zero < area_one:
                 mini_bit.append(1)
                 # Checking how sure I am that the bit is actually the bit
-                certainty = 1 - (area_zero / area_one)
+
+                certainty = (1 - (area_zero / area_one))**2
             else:
                 mini_bit.append(-1)
-                certainty = 1 - (area_one / area_zero)
+                certainty = (1 - (area_one / area_zero))**2
+
             # Keeping track of how sure I am in each bit
             certainty_array.append(certainty)
 
+        # Appending to big arrays for error analyzing
+
+
+        mini_certainty_array += certainty_array
+
         # Calculating bit_value by multiplying the two arrays.
+
         mini_bit_numpy = np.array(mini_bit)
         certainty_array_numpy = np.array(certainty_array)
         bit_value = np.sum(mini_bit_numpy * certainty_array_numpy)
+
+        # Mini bit array appending
+        for l in range(BIT_LENGTH):
+            if mini_bit[l] == -1:
+                mini_bit[l] = 0
+
+        mini_bits_array += mini_bit
+
+
 
         if bit_value < 0:
             bits.append(0)
@@ -162,5 +180,5 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray) -> list:
 
 
 
-    return bits
+    return bits, (mini_bits_array, mini_certainty_array)
 
