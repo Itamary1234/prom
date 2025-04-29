@@ -68,6 +68,9 @@ freq0_2 = 1100 * np.pi
 freq0_3 = 700 * np.pi
 freq0_4 = 1700 * np.pi
 freq0_5 = 600 * np.pi
+freq0_6 = 2200 * np.pi
+freq0_7 = 1800 * np.pi
+freq0_8 = 800 * np.pi
 
 freq1_0 = 700 * np.pi
 freq1_1 = 2100 * np.pi
@@ -75,7 +78,9 @@ freq1_2 = 1500 * np.pi
 freq1_3 = 300 * np.pi
 freq1_4 = 1000 * np.pi
 freq1_5 = 1400 * np.pi
-
+freq1_6 = 1200 * np.pi
+freq1_7 = 1300 * np.pi
+freq1_8 = 1800 * np.pi
 
 
 def func0_0_sin(t):
@@ -90,6 +95,12 @@ def func0_4_sin(t):
     return AMP * np.sin(t*freq0_4)
 def func0_5_sin(t):
     return AMP * np.sin(t*freq0_5)
+def func0_6_sin(t):
+    return AMP * np.sin(t*freq0_6)
+def func0_7_sin(t):
+    return AMP * np.sin(t*freq0_7)
+def func0_8_sin(t):
+    return AMP * np.sin(t*freq0_8)
 
 def func1_0_sin(t):
     return AMP * np.sin(t*freq1_0)
@@ -103,6 +114,12 @@ def func1_4_sin(t):
     return AMP * np.sin(t*freq1_4)
 def func1_5_sin(t):
     return AMP * np.sin(t*freq1_5)
+def func1_6_sin(t):
+    return AMP * np.sin(t*freq1_6)
+def func1_7_sin(t):
+    return AMP * np.sin(t*freq1_7)
+def func1_8_sin(t):
+    return AMP * np.sin(t*freq1_8)
 
 def func0_0_cos(t):
     return AMP * np.cos(t*freq0_0)
@@ -116,6 +133,13 @@ def func0_4_cos(t):
     return AMP * np.cos(t*freq0_4)
 def func0_5_cos(t):
     return AMP * np.cos(t*freq0_5)
+def func0_6_cos(t):
+    return AMP * np.cos(t*freq0_6)
+def func0_7_cos(t):
+    return AMP * np.cos(t*freq0_7)
+def func0_8_cos(t):
+    return AMP * np.cos(t*freq0_8)
+
 def func1_0_cos(t):
     return AMP * np.cos(t*freq1_0)
 def func1_1_cos(t):
@@ -128,6 +152,12 @@ def func1_4_cos(t):
     return AMP * np.cos(t*freq1_4)
 def func1_5_cos(t):
     return AMP * np.cos(t*freq1_5)
+def func1_6_cos(t):
+    return AMP * np.cos(t*freq1_6)
+def func1_7_cos(t):
+    return AMP * np.cos(t*freq1_7)
+def func1_8_cos(t):
+    return AMP * np.cos(t*freq1_8)
 
 
 
@@ -140,6 +170,9 @@ MINI_BIT_FUNCTION_ARRAY2 = [[(func0_3_sin,func0_3_cos),(func1_3_sin,func1_3_cos)
                            [(func0_5_sin,func0_5_cos),(func1_5_sin,func1_5_cos)]]
 
 
+MINI_BIT_FUNCTION_ARRAY3 = [[(func0_6_sin,func0_6_cos),(func1_6_sin,func1_6_cos)],
+                           [(func0_7_sin,func0_7_cos),(func1_7_sin,func1_7_cos)],
+                           [(func0_8_sin,func0_8_cos),(func1_8_sin,func1_8_cos)]]
 
 # MINI_BIT_FUNCTION_ARRAY1 = [[(func0,func0_cos),(func1,func1_cos)],
 #                            [(func0,func0_cos),(func1,func1_cos)],

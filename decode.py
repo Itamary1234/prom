@@ -44,11 +44,12 @@ def decode(file_path_in : str):
     # Finding bits using find bits functions
     bits_array1, errors_analyzing1= numpy_find_bits(message_time, message_amp, MINI_BIT_FUNCTION_ARRAY1)
     bits_array2, errors_analyzing2 = numpy_find_bits(message_time, message_amp, MINI_BIT_FUNCTION_ARRAY2)
+    bits_array3, errors_analyzing3 = numpy_find_bits(message_time, message_amp, MINI_BIT_FUNCTION_ARRAY3)
 
 
 
     #bits,(mini_bits, certainty)
-    return (bits_array1, errors_analyzing1), (bits_array2, errors_analyzing2)
+    return (bits_array1, errors_analyzing1), (bits_array2, errors_analyzing2), (bits_array3, errors_analyzing3)
 
 def check_errors(errors : tuple):
     '''
@@ -115,12 +116,12 @@ def bit_errors(bits_array : list):
 
 
 if __name__ == '__main__':
-    file_name="test_recordings/T_03_freq_1900_700_L_420.wav"
+    file_name="test_recordings/channel_test_2_freq_amp_500.wav"
     print("starting")
-    #record(file_name)
+    record(file_name)
     print("finished recording")
     print("starting decode")
-    bits1, bits2 = decode(file_name)
+    bits1, bits2, bits3 = decode(file_name)
 
     print("decode finished")
 
@@ -131,8 +132,10 @@ if __name__ == '__main__':
     print('Bit Errors = ' + str(bit_errors(bits1[0])))
 
     print('Sentence Decoded With Cross-Correlation: ' + sentence)
-    channel_bits = mini_to_bits(bits1[1], bits2[1])
+    channel_bits = mini_to_bits(bits1[1], bits2[1], bits3[1])
     print(str(channel_bits))
+    sentence_channel = decode_bits(channel_bits)
+    print('Sentence Decoded With Cross-Correlation Channels: ' + sentence_channel)
     print('Channel Bit Errors = ' + str(bit_errors(channel_bits)))
 
 

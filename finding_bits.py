@@ -183,18 +183,20 @@ def numpy_find_bits(time_axis: np.ndarray, amp_axis: np.ndarray, mini_bit_funcs 
 
     return bits, (mini_bits_array, mini_certainty_array)
 
-def mini_to_bits(channel1 : tuple, channel2 : tuple) -> list:
+def mini_to_bits(channel1 : tuple, channel2 : tuple, channel3 : tuple) -> list:
     '''
 
     :param channel1: A tuple consisting of mini_bits found from channel 1 and their certainties
     :param channel2:
+    :param
     :return:
     '''
     mini_bit_array1 = np.array(channel1[0])
     mini_bit_array2 = np.array(channel2[0])
     certainty_array1 = np.array(channel1[1])
     certainty_array2 = np.array(channel2[1])
-
+    mini_bit_array3 = np.array(channel3[0])
+    certainty_array3 = np.array(channel3[1])
 
     bits = []
     # Running through each bit
@@ -204,8 +206,10 @@ def mini_to_bits(channel1 : tuple, channel2 : tuple) -> list:
         mini_bit_2 = mini_bit_array2[i: i + BIT_LENGTH]
         cer_1 = certainty_array1[i: i + BIT_LENGTH]
         cer_2 = certainty_array2[i: i + BIT_LENGTH]
+        mini_bit_3 = mini_bit_array3[i: i + BIT_LENGTH]
+        cer_3 = certainty_array3[i: i + BIT_LENGTH]
         # Calculating average value of bit
-        bit_value = np.sum((2*mini_bit_1-1) * cer_1) + np.sum((2*mini_bit_2-1) * cer_2)
+        bit_value = np.sum((2*mini_bit_1-1) * cer_1) + np.sum((2*mini_bit_2-1) * cer_2) + np.sum((2*mini_bit_3-1) * cer_3)
         if bit_value < 0:
             bits.append(0)
         else:
